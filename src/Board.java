@@ -7,6 +7,8 @@ public class Board{
 	int[] selected;
 	int turn;
 	BoardState b;
+	int lastCapture; // number of moves since last Capture
+	int[] capturePiece;
 	public Board(){
 		for (int i = 0; i< 8; i++){
 			for (int j = 0; j< 8; j++)
@@ -20,6 +22,10 @@ public class Board{
 					Grid[i][j] = 0;
 				}
 		}
+		lastCapture = 0;
+		capturePiece = new int[] {-1,-1};
+			
+		
 	}
 	public void select(int x, int y){
 		if (turn*Grid[x][y] > 0){
@@ -31,10 +37,15 @@ public class Board{
 			if (b.checkValid(m)){
 				m.change(this);
 				b = new BoardState(this);
-				if (!m.isCapture()){
-					endTurn();
+				if (m.isCapture()){
+					capturePiece[0]=  m.xf();
+					capturePiece[1] = m.yf();
+					selected = capturePiece;
+					if (!b.validMoves()){
+						endTurn();
+					}
 				}
-				else if (!b.validMoves()){
+				else{
 					endTurn();
 				}
 			}
@@ -43,6 +54,7 @@ public class Board{
 	public void endTurn(){
 		turn = turn*-1;
 		selected = new int[] {-1, -1};
+		capturePiece = new int[] {-1, -1};
 	}
 	public int[][] getGrid(){
 		return Grid;
@@ -82,6 +94,9 @@ public class Board{
                 }
             }
         }
+	}
+	public int[] capturePiece(){
+		return capturePiece;
 	}
 	public int winner(){
 		if (!b.validMoves()){
