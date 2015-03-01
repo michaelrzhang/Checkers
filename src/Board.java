@@ -1,5 +1,6 @@
 package src;
 import src.*;
+import lib.stdlib.*;
 import java.util.*;
 public class Board{
 	private int[][] Grid = new int[8][8]; //the Board > 0 black < 0 red
@@ -20,7 +21,7 @@ public class Board{
 				}
 		}
 	}
-	public void select(int x, int y, int turn){
+	public void select(int x, int y){
 		if (turn*Grid[x][y] > 0){
 			selected = new int[] {x,y};
 		}
@@ -53,29 +54,31 @@ public class Board{
 		return turn;
 	}
 	public void drawBoard(){
+		int p;
         for (int i= 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
+            	p = Grid[i][j];
                 if ((selected[0]==i) && (selected[1]==j)){
-                    StdDrawPlus.setPenColor(StdDrawPlus.WHITE);
+                    StdDraw.setPenColor(StdDraw.WHITE);
                 }
                 else if ((i + j) % 2 == 0){
-                    StdDrawPlus.setPenColor(StdDrawPlus.GRAY);
+                    StdDraw.setPenColor(StdDraw.GRAY);
                 }
                 else{
-                    StdDrawPlus.setPenColor(StdDrawPlus.RED);   
+                    StdDraw.setPenColor(StdDraw.RED);   
                 }
-                StdDrawPlus.filledSquare(i + .5, j + .5, .5);
+                StdDraw.filledSquare(i + .5, j + .5, .5);
                 if (p == -2){
-                	StdDrawPlus.filledSquare(i + .5, j + .5, .5);
+                	StdDraw.filledSquare(i + .5, j + .5, .5);
                 }
                 else if (p == -1){
-                	StdDrawPlus.filledSquare(i + .5, j + .5, .5);
+                	StdDraw.filledSquare(i + .5, j + .5, .5);
                 }
                 else if (p == 1){
-                	StdDrawPlus.filledSquare(i + .5, j + .5, .5);	
+                	StdDraw.filledSquare(i + .5, j + .5, .5);	
                 }
                 else if (p == 2){
-                	StdDrawPlus.filledSquare(i + .5, j + .5, .5);
+                	StdDraw.filledSquare(i + .5, j + .5, .5);
                 }
             }
         }
@@ -86,19 +89,19 @@ public class Board{
 		}
 	}
 	public static void main(String args[]){
-		StdDrawPlus.setXscale(0, 8);
-        StdDrawPlus.setYscale(0, 8);
+		StdDraw.setXscale(0, 8);
+        StdDraw.setYscale(0, 8);
         int x;
         int y;
         Board board = new Board();
-        while(winner() == 0){
+        while(board.winner() == 0){
             board.drawBoard();
-            if (StdDrawPlus.mousePressed()){
-                x = (int) StdDrawPlus.mouseX();
-                y = (int) StdDrawPlus.mouseY();
+            if (StdDraw.mousePressed()){
+                x = (int) StdDraw.mouseX();
+                y = (int) StdDraw.mouseY();
                 board.select(x,y);
             }
-            StdDrawPlus.show(1);
+            StdDraw.show(1);
         }
         System.out.println(board.winner());
     }
