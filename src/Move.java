@@ -31,8 +31,30 @@ public class Move{
 	public int yi(){
 		return yi;
 	}
-	
-	public void change(Board b){
-		return;
+	public boolean equals(Move other){
+		return xi == other.xi() && xf == other.xf() && yi == other.yi() && yf == other.yf();
 	}
+	public void change(Board b){
+		int[][] grid = b.getGrid();
+		grid[xf][yf] = grid[xi][yi];
+		b.getGrid()[xi][yi] = 0;
+		if(isCapture){
+			int x = (xf + xi)/2;
+			int y = (xf + xi)/2;
+			grid[x][y] = 0;
+		}
+	}
+	/*
+	public Board changeBoard(Board b){
+		Board newb = new Board(b);
+		int[][] grid = newb.getGrid();
+		grid[xf][yf] = grid[xi][yi];
+		b.getGrid()[xi][yi] = 0;
+		if(isCapture){
+			int x = (xf + xi)/2;
+			int y = (xf + xi)/2;
+			grid[x][y] = 0;
+		}
+		return newb;
+	}*/
 }
