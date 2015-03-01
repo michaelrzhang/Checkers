@@ -31,8 +31,8 @@ public class Move{
 	public int yi(){
 		return yi;
 	}
-	/*
-	public void changeBoard(Board b){
+	
+	public void change(Board b){
 		return;
-	}*/
+	}
 }

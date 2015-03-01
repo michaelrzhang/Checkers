@@ -29,7 +29,7 @@ public class Board{
 			Move m = new Move(selected[0], selected[1], x, y);
 			b = new BoardState(this);
 			if (b.checkValid(m)){
-				m.change(Board);
+				m.change(this);
 				b = new BoardState(this);
 				if (!m.isCapture()){
 					endTurn();
@@ -84,9 +84,10 @@ public class Board{
         }
 	}
 	public int winner(){
-		if (!moves.validMoves()){
+		if (!b.validMoves()){
 			return turn * -1;
 		}
+		return 0;
 	}
 	public static void main(String args[]){
 		StdDraw.setXscale(0, 8);

@@ -1,4 +1,5 @@
 package src;
+import src.*;
 import java.util.HashSet;
 public class BoardState{
 	int[][] pieces;
@@ -23,10 +24,15 @@ public class BoardState{
 			change = false;
 		}
 	}
+	public boolean checkValid(Move m){
+		return true;
+	}
 	public int sum(){
-		int total;
+		int total = 0;
 		for(int[] row : pieces){
-			total += sum(row);
+			for(int piece : row){
+				total += piece;
+			}
 		}
 		return total;
 	}
@@ -36,7 +42,7 @@ public class BoardState{
 	public HashSet<Move> compMoves(){
 		return computerMoves;
 	}
-	public boolean validMove(){
+	public boolean validMoves(){
 		return !moves.isEmpty();
 	}
 	public void totalMoves(){
@@ -60,9 +66,9 @@ public class BoardState{
 	}
 	public boolean computerMoves(){
 		for(Move move: computerMoves){
-			computerMoves.multiCapture(move, turn);
+			multiCapture(move, turn);
 			if(Math.abs(pieces[move.xi()][move.yi()]) == 2){
-				computerMoves.multiCapture(move, -1* turn);
+				multiCapture(move, -1* turn);
 			}
 		}
 		return change;
@@ -70,13 +76,13 @@ public class BoardState{
 	public void multiCapture(Move move, int turn){
 		int x = move.xf();
 		int y = move.yf();
-		if(!outOfBounds(x+2*turn, y+2*turn) && pieces[x+turn][y+turn] = -1*turn && pieces[x+2*turn][y+2*turn] == 0){
+		if(!outOfBounds(x+2*turn, y+2*turn) && pieces[x+turn][y+turn] == -1*turn && pieces[x+2*turn][y+2*turn] == 0){
 			computerMoves.add(new Move(x, y, x+2*turn, y+2*turn));
 			change = true;
 			if(computerMoves.contains(move))
 				computerMoves.remove(move);
 		}
-		if(!outOfBounds(x-2*turn, y+2*turn) && pieces[x+turn][y+turn] = -1*turn && pieces[x-2*turn][y+2*turn] == 0){
+		if(!outOfBounds(x-2*turn, y+2*turn) && pieces[x+turn][y+turn] == -1*turn && pieces[x-2*turn][y+2*turn] == 0){
 			moves.add(new Move(x, y, x-2*turn, y+2*turn));
 			change = true;
 			if(computerMoves.contains(move))
@@ -90,11 +96,11 @@ public class BoardState{
 		if(!outOfBounds(x-turn, y+turn) && pieces[x-turn][y+turn] == 0){
 			moves.add(new Move(x, y, x-turn, y+turn));
 		}
-		if(!outOfBounds(x+2*turn, y+2*turn) && pieces[x+turn][y+turn] = -1*turn && pieces[x+2*turn][y+2*turn] == 0){
+		if(!outOfBounds(x+2*turn, y+2*turn) && pieces[x+turn][y+turn] == -1*turn && pieces[x+2*turn][y+2*turn] == 0){
 			moves.add(new Move(x, y, x+2*turn, y+2*turn));
 			forcedMoves = true;
 		}
-		if(!outOfBounds(x-2*turn, y+2*turn) && pieces[x+turn][y+turn] = -1*turn && pieces[x-2*turn][y+2*turn] == 0){
+		if(!outOfBounds(x-2*turn, y+2*turn) && pieces[x+turn][y+turn] == -1*turn && pieces[x-2*turn][y+2*turn] == 0){
 			moves.add(new Move(x, y, x-2*turn, y+2*turn));
 			forcedMoves = true;
 		}
