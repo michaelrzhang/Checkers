@@ -13,25 +13,27 @@ public class Board{
 		for (int i = 0; i< 8; i++){
 			for (int j = 0; j< 8; j++)
 				if(j>=5 && (j%2 == i%2)) {
-					Grid[i][j] = -1;
+					Grid[i][j] = -1;;
 				}
-				else if (j <= 3 && (j%2==i%2)){
+				else if (j <= 2 && (j%2==i%2)){
 					Grid[i][j] = 1;
 				}
 				else{
 					Grid[i][j] = 0;
 				}
 		}
+		turn = 1;
 		lastCapture = 0;
 		capturePiece = new int[] {-1,-1};
-			
+		selected = new int[] {-1,-1};
+		b = new BoardState(this);
 		
 	}
 	public void select(int x, int y){
 		if (turn*Grid[x][y] > 0){
 			selected = new int[] {x,y};
 		}
-		else{
+		else if (selected[0] >= 0){
 			Move m = new Move(selected[0], selected[1], x, y);
 			b = new BoardState(this);
 			if (b.checkValid(m)){
@@ -79,24 +81,28 @@ public class Board{
                 else{
                     StdDraw.setPenColor(StdDraw.RED);   
                 }
-                StdDraw.filledSquare(i + .5, j + .5, .5);
+                StdDraw.filledSquare(i + .5, j + .5, 0.5);
                 if (p == -2){
-                	StdDraw.filledSquare(i + .5, j + .5, .5);
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);
                 }
                 else if (p == -1){
-                	StdDraw.filledSquare(i + .5, j + .5, .5);
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);
                 }
                 else if (p == 1){
-                	StdDraw.filledSquare(i + .5, j + .5, .5);	
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);	
                 }
                 else if (p == 2){
-                	StdDraw.filledSquare(i + .5, j + .5, .5);
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);
                 }
             }
         }
 	}
 	public int[] capturePiece(){
 		return capturePiece;
+	}
+	public void setCapturePiece(int x, int y){
+		capturePiece[0] = x;
+		capturePiece[1] = y;
 	}
 	public int winner(){
 		if (!b.validMoves()){
