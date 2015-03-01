@@ -1,3 +1,4 @@
+package src;
 public class FindBestMove{
     /**
      * Things to consider (most important at top):

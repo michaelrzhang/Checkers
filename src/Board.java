@@ -1,20 +1,22 @@
 package src;
+import src.*;
 import java.util.*;
 public class Board{
 	private int[][] Grid = new int[8][8]; //the Board > 0 black < 0 red
 	int[] selected;
 	int turn;
+	BoardState b;
 	public Board(){
 		for (int i = 0; i< 8; i++){
 			for (int j = 0; j< 8; j++)
-				if(j>=5 && (j%2 == i%2) {
+				if(j>=5 && (j%2 == i%2)) {
 					Grid[i][j] = -1;
 				}
 				else if (j <= 3 && (j%2==i%2)){
 					Grid[i][j] = 1;
 				}
 				else{
-					Grid[i][j] = 0
+					Grid[i][j] = 0;
 				}
 		}
 	}
@@ -24,23 +26,22 @@ public class Board{
 		}
 		else{
 			Move m = new Move(selected[0], selected[1], x, y);
-			BS = new BoardState(this);
-			if (BS.checkValid(m)){
+			b = new BoardState(this);
+			if (b.checkValid(m)){
 				m.change(Board);
+				b = new BoardState(this);
 				if (!m.isCapture()){
 					endTurn();
 				}
-				else if (!BS.validMoves()){
+				else if (!b.validMoves()){
 					endTurn();
 				}
 			}
 		}
 	}
-	public 
 	public void endTurn(){
 		turn = turn*-1;
 		selected = new int[] {-1, -1};
-		moves = new Moves(this)
 	}
 	public int[][] getGrid(){
 		return Grid;
@@ -80,7 +81,7 @@ public class Board{
         }
 	}
 	public int winner(){
-		(!moves.validMoves()){
+		if (!moves.validMoves()){
 			return turn * -1;
 		}
 	}
