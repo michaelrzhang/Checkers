@@ -13,6 +13,9 @@ public class BoardState{
 		this.turn = p.getTurn();
 		forcedMoves = false;
 		totalMoves();
+		for(Move move: moves){
+			computerMoves.add(move);
+		}
 		boolean multi = true;
 		while(multi){
 			multi = computerMoves();
@@ -28,6 +31,9 @@ public class BoardState{
 	}
 	public HashSet<Move> moves(){
 		return moves;
+	}
+	public HashSet<Move> compMoves(){
+		return computerMoves;
 	}
 	public boolean validMove(){
 		return !moves.isEmpty();
@@ -52,7 +58,6 @@ public class BoardState{
 		}
 	}
 	public boolean computerMoves(){
-		computerMoves = moves;
 		for(Move move: computerMoves){
 			computerMoves.multiCapture(move, turn);
 			if(Math.abs(pieces[move.xi()][move.yi()]) == 2){
