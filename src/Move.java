@@ -1,3 +1,4 @@
+package src;
 public class Move{
 	public boolean isCapture;
 	public int xi;
