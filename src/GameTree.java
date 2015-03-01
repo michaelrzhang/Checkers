@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class GameTree{
-    public BoardState parent;
-    public BoardState root;
-    public ArrayList<BoardState> branches;
+    public GameTree parent;
+    public BoardState b;
+    public ArrayList<GameTree> branches;
     public int score;
     public int depth;
     public boolean active;  // True if we should continue searching
@@ -11,10 +11,16 @@ public class GameTree{
 
     public GameTree(){
         branches = null;
+        parent = null;
+    }
+
+    public GameTree(GameTree parent, BoardState b){
+        this.parent = parent;
+        this.b = b;
     }
 
     public void addBranch(BoardState b){
-        branches.add(b);
+        branches.add(GameTree(b));
     }
 
 
