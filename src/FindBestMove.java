@@ -47,7 +47,7 @@ public class FindBestMove{
         this.turn = turn;
         this.strat = strat;
     }
-    public static double alphabeta(GameTree gtree, int depth, int turn, int strat){
+    public static double alphabeta(GameTree gtree, int depth, int turn, int strat, long time){
         if (gtree.getDepth() == depth){
             return gtree.eval(turn, strat); 
         }
@@ -55,7 +55,7 @@ public class FindBestMove{
             ArrayList<GameTree> branches = gtree.getBranches();
             double v = Integer.MIN_VALUE;
             for (GameTree gt : branches){
-                v = Math.max(v, alphabeta(gt,depth, turn,strat));
+                v = Math.max(v, alphabeta(gt,depth, turn,strat, time));
                 gtree.setAlpha(Math.max(v, gtree.getAlpha()));
                 if (gtree.getBeta() <= gtree.getAlpha()){
                     continue;
@@ -67,7 +67,10 @@ public class FindBestMove{
             ArrayList<GameTree> branches = gtree.getBranches();
             double v = Integer.MAX_VALUE;
             for (GameTree gt : branches){
-                v = Math.min(v, alphabeta(gt,depth, turn,strat));
+                if (System.nanoTime() - time < 10 * Math.pow(10, 9)){
+                    return v;
+                }
+                v = Math.min(v, alphabeta(gt,depth, turn,strat, time));
                 gtree.setBeta(Math.max(v, gtree.getBeta()));
                 if (gtree.getBeta() <= gtree.getAlpha()){
                     continue;
@@ -78,6 +81,7 @@ public class FindBestMove{
     }
     public Board findBest(int depth){
         // flatten();
+        long time = System.nanoTime();
         findChild();
         depth+= state.getDepth();
         expandAll(depth);
@@ -87,12 +91,15 @@ public class FindBestMove{
         double max = Integer.MIN_VALUE;
         ArrayList<GameTree> branches = state.getBranches();
         for (GameTree gt : branches){
-            v = alphabeta(gt, depth, turn,strat);
+            v = alphabeta(gt, depth, turn,strat,time);
             if (v > max){
                 j = i;
                 max = v;
             }
             i += 1;
+            if (System.nanoTime() - time < 10 * Math.pow(10, 9)){
+                break;
+            }
         }
         this.state = branches.get(j);
         ArrayList<GameTree> bran = state.getBranches();
