@@ -68,7 +68,7 @@ public class EvalBoard{
 
     public double evalBoardHard(Board b){
         int[][] board = b.getGrid();
-        return pawnDifference(board) + kingDifference(board) * 2 + safePawnDifference(board) * 0.5 ;
+        return pawnDifference(board)*3 + kingDifference(board) * 6 + safePawnDifference(board) * 1 ;
     }
     public int pawnDifference(int[][] grid){
         int red = 0;
