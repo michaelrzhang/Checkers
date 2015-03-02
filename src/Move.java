@@ -52,7 +52,7 @@ public class Move{
 		Board newb = new Board(b);
 		int[][] grid = newb.getGrid();
 		grid[xf][yf] = grid[xi][yi];
-		b.getGrid()[xi][yi] = 0;
+		grid[xi][yi] = 0;
 		if(isCapture){
 			int x = (xf + xi)/2;
 			int y = (yf + yi)/2;
