@@ -5,7 +5,7 @@ public class ComputerMoves{
 	ArrayList<Board> possibleBoards;
 	Board current;
 	public ComputerMoves(Board b){
-		current = b;
+		current = new Board(b);
 		possibleBoards = new ArrayList<Board>();
 		BoardState bs = new BoardState(current);
 		HashSet<Move> moves = bs.moves();
@@ -13,7 +13,11 @@ public class ComputerMoves{
 			if(move.isCapture()){
 				multiCapture(move);
 			}
-			possibleBoards.add(move.changeBoard(current));
+			else{
+				Board temp = move.changeBoard(current);
+				temp.endTurn();
+				possibleBoards.add(temp);
+			}
 		}
 	}
 	public void multiCapture(Move m){
@@ -25,6 +29,7 @@ public class ComputerMoves{
 				multiCapture(move);
 			}
 		} else{
+			b.endTurn();
 			possibleBoards.add(b);
 		}
 	}
