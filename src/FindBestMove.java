@@ -88,7 +88,7 @@ public class FindBestMove{
             }
             i += 1;
         }
-        state = branches.get(j);
+        this.state = branches.get(j);
         ArrayList<GameTree> bran = state.getBranches();
         for (GameTree gt: bran){
             System.out.println(gt);          
