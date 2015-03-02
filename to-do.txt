@@ -1,0 +1,14 @@
+1. Number of pawns;
+2. Number of kings;
+3. Number of safe pawns (i.e. adjacent to the edge of the board);
+4. Number of safe kings;
+5. Number of moveable pawns (i.e. able to perform a move other than capturing).
+6. Number of moveable kings. Parameters 5 and 6 are calculated taking no notice of
+capturing priority;
+7. Aggregated distance of the pawns to promotion line;
+8. Number of unoccupied fields on promotion line.
+
+I want to have the difference between the numbers. so for the first one (number of positive pawns - number of negative pawns)
+
+method signature like this 
+public int diffPawns(int[][] x)
