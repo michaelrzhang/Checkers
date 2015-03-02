@@ -163,9 +163,19 @@ public class Board{
 	}
 
     public void printBoard(){
+        int val;
         for (int i = 0; i< 8; i++){
             for (int j = 0; j< 8; j++){
-                System.out.print("val: " + Grid[i][j] + " ");
+                val = Grid[i][j];
+                if (val < 0){
+                    System.out.print(" | B" + Math.abs(val));
+                }
+                else if (val > 0){
+                    System.out.print(" | R" + val);
+                }
+                else{
+                    System.out.print(" |   ");
+                }
             }
             System.out.println();
         }
