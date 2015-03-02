@@ -40,12 +40,12 @@ public class FindBestMove{
     GameTree state;
     Board main;
     int turn;
-    public FindBestMove(Board b){
+    public FindBestMove(Board b, int turn){
         main = b;
         state = new GameTree(b);
-        turn = main.getTurn();
+        this.turn = turn;
     }
-    public static double alphabeta(GameTree gtree, int depth){
+    public static double alphabeta(GameTree gtree, int depth, int turn){
         if (gtree.getDepth() == depth){
             return gtree.eval(turn); 
         }
@@ -53,7 +53,7 @@ public class FindBestMove{
             ArrayList<GameTree> branches = gtree.getBranches();
             double v = Integer.MIN_VALUE;
             for (GameTree gt : branches){
-                v = Math.max(v, alphabeta(gt,depth));
+                v = Math.max(v, alphabeta(gt,depth, turn));
                 gtree.setAlpha(Math.max(v, gtree.getAlpha()));
                 if (gtree.getBeta() <= gtree.getAlpha()){
                     continue;
@@ -65,7 +65,7 @@ public class FindBestMove{
             ArrayList<GameTree> branches = gtree.getBranches();
             double v = Integer.MAX_VALUE;
             for (GameTree gt : branches){
-                v = Math.min(v, alphabeta(gt,depth));
+                v = Math.min(v, alphabeta(gt,depth, turn));
                 gtree.setBeta(Math.max(v, gtree.getBeta()));
                 if (gtree.getBeta() <= gtree.getAlpha()){
                     continue;
@@ -85,7 +85,7 @@ public class FindBestMove{
         double max = Integer.MIN_VALUE;
         ArrayList<GameTree> branches = state.getBranches();
         for (GameTree gt : branches){
-            v = alphabeta(gt, depth);
+            v = alphabeta(gt, depth, turn);
             if (v > max){
                 j = i;
                 max = v;
