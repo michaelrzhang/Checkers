@@ -38,43 +38,43 @@ public class FindBestMove{
             // alphabeta(origin, depth, -∞, +∞, TRUE)
     GameTree state;
     public FindBestMove(Board b){
-        state = GameTree(b);
+        state = new GameTree(b);
     }
-    public static Move alphabeta(GameTree gtree, int depth){
+    public static double alphabeta(GameTree gtree, int depth){
         if (gtree.getDepth() == depth){
             return gtree.eval(); 
         }
         else if (gtree.isMaximizing()){
             ArrayList<GameTree> branches = gtree.getBranches();
-            int v = Integer.MIN_VALUE;
+            double v = Integer.MIN_VALUE;
             for (GameTree gt : branches){
                 v = Math.max(v, alphabeta(gt,depth));
-                gtree.setAlpha(Math.max(v, gtree.getAlpha));
+                gtree.setAlpha(Math.max(v, gtree.getAlpha()));
                 if (gtree.getBeta() <= gtree.getAlpha()){
-                    //BREAKpls write once u understand what you are doing
+                    continue;
                 }
             }
             return v;
         }
         else{
             ArrayList<GameTree> branches = gtree.getBranches();
-            int v = Integer.MAX_VALUE;
+            double v = Integer.MAX_VALUE;
             for (GameTree gt : branches){
                 v = Math.min(v, alphabeta(gt,depth));
-                gtree.setBeta(Math.max(v, gtree.getBeta));
+                gtree.setBeta(Math.max(v, gtree.getBeta()));
                 if (gtree.getBeta() <= gtree.getAlpha()){
-                    //BREAKpls write once u understand what you are doing
+                    continue;
                 }
             }
             return v;
         }
     }
-    public Move findBest(int depth){
+    public Board findBest(int depth){
         expandAll(depth);
         int i = 0;
         int j = 0;
-        int v;
-        max = Integer.MIN_VALUE;
+        double v;
+        double max = Integer.MIN_VALUE;
         ArrayList<GameTree> branches = state.getBranches();
         for (GameTree gt : branches){
             i += 1;
@@ -86,11 +86,11 @@ public class FindBestMove{
         }
         return branches.get(j).getBoard(); 
     }
-    public ArrayList<GameTree> expand(GameTree gt){
+    public static ArrayList<GameTree> expand(GameTree gt){
         ComputerMoves cm = new ComputerMoves(gt.getBoard());
         ArrayList<Board> boards = cm.possibleBoards();
         for (Board b : boards){
-            gt.addBranch(new GameTree(gt, b));
+            gt.addBranch(b);
         }
         return gt.getBranches();
     }
@@ -107,6 +107,6 @@ public class FindBestMove{
         }
     }
     public void expandAll(int depth){
-        return expandAll(state, depth);
+        expandAll(state, depth);
     }
 }

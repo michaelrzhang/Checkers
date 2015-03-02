@@ -37,24 +37,31 @@ public class GameTree{
     }
 
     public void addBranch(Board b){
-        branches.add(GameTree(b));
+        branches.add(new GameTree(this, b));
     }
     public Board getBoard(){
         return board;
     }
-    public void setAlpha(int a){
+    public void setAlpha(double a){
         alpha = a;
     }
-    public void setBeta(int b){
+    public void setBeta(double b){
         beta = b;
+    }
+    public double getAlpha(){
+        return alpha;
+    }
+    public double getBeta(){
+        return beta;
     }
     public int getDepth(){
         return depth;
     }
-    public void eval(){
-        double x = EvalBoard.evalBoardSimple(board);
+    public double eval(){
+        double x = EvalBoard.evalBoard(board);
         alpha = x;
         beta = x;
+        return x;
     }
     public boolean isMaximizing(){
         return max;
