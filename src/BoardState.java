@@ -35,7 +35,7 @@ public class BoardState{
 	public void totalMoves(){
 		for(int i = 0; i < pieces.length; i += 1){
 			for(int j = 0; j < pieces[i].length; j += 1){
-				if(pieces[i][j] == turn){
+				if(pieces[i][j] * turn > 0){
 					pieceMoves(i,j);
 				}
 			}
