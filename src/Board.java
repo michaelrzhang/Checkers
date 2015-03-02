@@ -44,15 +44,15 @@ public class Board{
 	public Board(Board board){
 		for (int i = 0; i< 8; i++){
 			for (int j = 0; j< 8; j++){
-				if(j>=5 && (j%2 == i%2)) {
-					Grid[i][j] = board.Grid[i][j];
-				}
+				Grid[i][j] = board.Grid[i][j];
 			}
 		}
 		turn = board.turn;
 		lastCapture = board.lastCapture;
-		capturePiece = board.capturePiece;
-		selected = board.selected;
+		capturePiece[0] = board.capturePiece[0];
+		capturePiece[1] = board.capturePiece[1];
+		selected[0] = board.selected[0];
+		selected[1] = board.selected[1];
 		b = new BoardState(this);
 	}
 

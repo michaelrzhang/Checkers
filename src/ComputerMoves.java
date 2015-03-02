@@ -5,7 +5,7 @@ public class ComputerMoves{
 	ArrayList<Board> possibleBoards;
 	Board current;
 	public ComputerMoves(Board b){
-		current = new Board(b);
+		current = b;
 		possibleBoards = new ArrayList<Board>();
 		BoardState bs = new BoardState(current);
 		HashSet<Move> moves = bs.moves();

@@ -71,4 +71,7 @@ public class GameTree{
     public ArrayList<GameTree> getBranches(){
         return branches;
     }
+    public void removeBranches(){
+        branches = new ArrayList<GameTree>();
+    }
 }

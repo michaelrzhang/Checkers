@@ -70,6 +70,8 @@ public class FindBestMove{
         }
     }
     public Board findBest(int depth){
+        // flatten();
+        findChild();
         expandAll(depth);
         int i = 0;
         int j = 0;
@@ -84,7 +86,8 @@ public class FindBestMove{
             }
             i += 1;
         }
-        return branches.get(j).getBoard(); 
+        state = branches.get(j);
+        return state.getBoard(); 
     }
     public static ArrayList<GameTree> expand(GameTree gt){
         ComputerMoves cm = new ComputerMoves(gt.getBoard());
@@ -109,5 +112,16 @@ public class FindBestMove{
     }
     public void expandAll(int depth){
         expandAll(state, depth);
+    }
+    public void flatten(){
+        state.removeBranches();
+    }
+    public void findChild(){
+        ArrayList<GameTree> branches = state.getBranches();
+        for (GameTree gt: branches){
+            if (state.getBoard().equals(gt.getBoard())){
+                state = gt;
+            }
+        }
     }
 }
