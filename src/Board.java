@@ -57,13 +57,11 @@ public class Board{
 			b = new BoardState(this);
 			if (b.checkValid(m)){
 				m.change(this);
+				System.out.println(Grid[m.xf()][m.yf()]);
 				b = new BoardState(this);
-				System.out.println(m.isCapture());
 				if (m.isCapture()){
 					selected = capturePiece;
-					System.out.println(b.moves().size());
 					if (!b.validMoves()){
-						System.out.println("ended turn");
 						endTurn();
 					}
 				}
@@ -104,16 +102,16 @@ public class Board{
                 }
                 StdDraw.filledSquare(i + .5, j + .5, 0.5);
                 if (p == -2){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-water-crowned.png", 1, 1);
                 }
                 else if (p == -1){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-water.png", 1, 1);
                 }
                 else if (p == 1){
                 	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);	
                 }
                 else if (p == 2){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire-crowned.png", 1, 1);
                 }
             }
         }
