@@ -9,10 +9,10 @@ public class VsAi{
         int x;
         int y;
         Board board = new Board();
-        FindBestMove CompMove2 = new FindBestMove(board, 1);
+        FindBestMove CompMove = new FindBestMove(board);
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
-        		board.setBoard(CompMove2.findBest(5));
+        		board.setBoard(CompMove.findBest(5));
         	}
             else if (StdDraw.mousePressed()){
                 x = (int) StdDraw.mouseX();
