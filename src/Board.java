@@ -49,10 +49,8 @@ public class Board{
 		}
 		turn = board.turn;
 		lastCapture = board.lastCapture;
-		capturePiece[0] = board.capturePiece[0];
-		capturePiece[1] = board.capturePiece[1];
-		selected[0] = board.selected[0];
-		selected[1] = board.selected[1];
+		capturePiece = new int[] {board.capturePiece[0], board.capturePiece[1]};
+		selected = new int[] {board.selected[0], board.selected[1]};
 		b = new BoardState(this);
 	}
 
