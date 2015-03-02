@@ -161,6 +161,16 @@ public class Board{
 		selected = b.selected;
 		this.b = new BoardState(this);
 	}
+
+    public void printBoard(){
+        for (int i = 0; i< 8; i++){
+            for (int j = 0; j< 8; j++){
+                System.out.print("val: " + Grid[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
 	public static void main(String args[]){
 		StdDraw.setXscale(0, 8);
         StdDraw.setYscale(0, 8);
