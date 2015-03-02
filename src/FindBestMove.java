@@ -39,13 +39,15 @@ public class FindBestMove{
             // alphabeta(origin, depth, -∞, +∞, TRUE)
     GameTree state;
     Board main;
+    int turn;
     public FindBestMove(Board b){
         main = b;
         state = new GameTree(b);
+        turn = main.getTurn();
     }
     public static double alphabeta(GameTree gtree, int depth){
         if (gtree.getDepth() == depth){
-            return gtree.eval(); 
+            return gtree.eval(turn); 
         }
         else if (gtree.isMaximizing()){
             ArrayList<GameTree> branches = gtree.getBranches();
