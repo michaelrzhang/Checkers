@@ -35,7 +35,7 @@ public class BoardState{
 	public void totalMoves(){
 		for(int i = 0; i < pieces.length; i += 1){
 			for(int j = 0; j < pieces[i].length; j += 1){
-				if(pieces[i][j] == turn){
+				if(pieces[i][j] * turn > 0){
 					pieceMoves(i,j);
 				}
 			}
@@ -56,26 +56,30 @@ public class BoardState{
 		if(capturePiece[0] < 0 && !outOfBounds(x-turn, y+turn) && pieces[x-turn][y+turn] == 0){
 			moves.add(new Move(x, y, x-turn, y+turn));
 		}
-		if(!outOfBounds(x+2*turn, y+2*turn) && pieces[x+turn][y+turn] == -1*turn && pieces[x+2*turn][y+2*turn] == 0){
+		if(!outOfBounds(x+2*turn, y+2*turn) && pieces[x+turn][y+turn] * turn < 0 && pieces[x+2*turn][y+2*turn] == 0){
 			moves.add(new Move(x, y, x+2*turn, y+2*turn));
 			forcedMoves = true;
 		}
-		if(!outOfBounds(x-2*turn, y+2*turn) && pieces[x-turn][y+turn] == -1*turn && pieces[x-2*turn][y+2*turn] == 0){
+		if(!outOfBounds(x-2*turn, y+2*turn) && pieces[x-turn][y+turn] * turn <0 && pieces[x-2*turn][y+2*turn] == 0){
 			moves.add(new Move(x, y, x-2*turn, y+2*turn));
 			forcedMoves = true;
 		}
 		if(capturePiece[0] < 0 && Math.abs(pieces[x][y]) == 2 && !outOfBounds(x+turn, y-turn) && pieces[x+turn][y-turn] == 0){
 			moves.add(new Move(x, y, x+turn, y-turn));
+			System.out.println("king can move");
 		}
 		if(capturePiece[0] < 0 && Math.abs(pieces[x][y]) == 2 && !outOfBounds(x-turn, y-turn) && pieces[x-turn][y-turn] == 0){
 			moves.add(new Move(x, y, x-turn, y-turn));
+			System.out.println("king can move");
 		}
-		if(Math.abs(pieces[x][y]) == 2 && !outOfBounds(x+2*turn, y-2*turn) && pieces[x+turn][y-turn] == -1*turn && pieces[x+2*turn][y-2*turn] == 0){
+		if(Math.abs(pieces[x][y]) == 2 && !outOfBounds(x+2*turn, y-2*turn) && pieces[x+turn][y-turn] * turn < 0 && pieces[x+2*turn][y-2*turn] == 0){
 			moves.add(new Move(x, y, x+2*turn, y-2*turn));
+			System.out.println("king can move");
 			forcedMoves = true;
 		}
-		if(Math.abs(pieces[x][y]) == 2 && !outOfBounds(x-2*turn, y-2*turn) && pieces[x-turn][y-turn] == -1*turn && pieces[x-2*turn][y-2*turn] == 0){
+		if(Math.abs(pieces[x][y]) == 2 && !outOfBounds(x-2*turn, y-2*turn) && pieces[x-turn][y-turn] * turn < 0 && pieces[x-2*turn][y-2*turn] == 0){
 			moves.add(new Move(x, y, x-2*turn, y-2*turn));
+			System.out.println("king can move");
 			forcedMoves = true;
 		}
 	}

@@ -28,18 +28,26 @@ public class Board{
 		selected = new int[] {-1,-1};
 		b = new BoardState(this);	
 	}
+	public Board(boolean empty){
+		for (int i = 0; i< 8; i++)
+			for (int j = 0; j< 8; j++)
+				Grid[i][j] = 0;	
+		turn = 1;
+		lastCapture = 0;
+		capturePiece = new int[] {-1,-1};
+		selected = new int[] {-1,-1};
+		b = new BoardState(this);
+	}
+	public void addPiece(int[] location, int type){
+		Grid[location[0]][location[1]] = type; 
+	}
 	public Board(Board board){
 		for (int i = 0; i< 8; i++){
-			for (int j = 0; j< 8; j++)
+			for (int j = 0; j< 8; j++){
 				if(j>=5 && (j%2 == i%2)) {
 					Grid[i][j] = board.Grid[i][j];
 				}
-				else if (j <= 2 && (j%2==i%2)){
-					Grid[i][j] = board.Grid[i][j];
-				}
-				else{
-					Grid[i][j] = board.Grid[i][j];
-				}
+			}
 		}
 		turn = board.turn;
 		lastCapture = board.lastCapture;
@@ -57,13 +65,11 @@ public class Board{
 			b = new BoardState(this);
 			if (b.checkValid(m)){
 				m.change(this);
+				System.out.println(Grid[m.xf()][m.yf()]);
 				b = new BoardState(this);
-				System.out.println(m.isCapture());
 				if (m.isCapture()){
 					selected = capturePiece;
-					System.out.println(b.moves().size());
 					if (!b.validMoves()){
-						System.out.println("ended turn");
 						endTurn();
 					}
 				}
@@ -105,16 +111,16 @@ public class Board{
                 }
                 StdDraw.filledSquare(i + .5, j + .5, 0.5);
                 if (p == -2){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-water-crowned.png", 1, 1);
                 }
                 else if (p == -1){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-water.png", 1, 1);
                 }
                 else if (p == 1){
                 	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);	
                 }
                 else if (p == 2){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);
+                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire-crowned.png", 1, 1);
                 }
             }
         }
@@ -135,6 +141,20 @@ public class Board{
 		}
 		return 0;
 	}
+	public void setBoard(Board b){
+		for (int i = 0; i< 8; i++){
+			for (int j = 0; j< 8; j++){
+				if(j>=5 && (j%2 == i%2)) {
+					Grid[i][j] = b.Grid[i][j];
+				}
+			}
+		}
+		turn = b.turn;
+		lastCapture = b.lastCapture;
+		capturePiece = b.capturePiece;
+		selected = b.selected;
+		this.b = new BoardState(this);
+	}
 	public static void main(String args[]){
 		StdDraw.setXscale(0, 8);
         StdDraw.setYscale(0, 8);
@@ -148,6 +168,7 @@ public class Board{
                 y = (int) StdDraw.mouseY();
                 board.select(x,y);
             }
+            board.drawBoard();
             StdDraw.show(1);
         }
         System.out.println(board.winner());

@@ -45,7 +45,7 @@ public class Move{
 			b.setCapturePiece(xf, yf);
 		}
 		if(yf == 7 && grid[xf][yf] == 1 || yf == 0 && grid[xf][yf] == -1){
-			grid[xf][yf] *= 2;
+			grid[xf][yf] = 2* b.getTurn();
 		}
 	}
 	public Board changeBoard(Board b){
@@ -60,7 +60,7 @@ public class Move{
 			newb.setCapturePiece(xf, yf);
 		}
 		if(yf == 7 && grid[xf][yf] == 1 || yf == 0 && grid[xf][yf] == -1){
-			grid[xf][yf] *= 2;
+			grid[xf][yf] = 2* b.getTurn();
 		}
 		return newb;
 	}
