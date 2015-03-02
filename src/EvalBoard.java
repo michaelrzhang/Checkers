@@ -5,7 +5,7 @@ public class EvalBoard{
 
 // 10-11-12-13-14
 // 00-01-02-03-04
-    public double evalBoardSimple(Board b){
+    public static double evalBoardSimple(Board b){
         // hardcoding because can't think of way to put multiplier for given coordinates
         int[] multipliers = new int[8][8];
         for (int i = 0; i < 8; i += 2){
