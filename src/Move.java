@@ -40,11 +40,14 @@ public class Move{
 		b.getGrid()[xi][yi] = 0;
 		if(isCapture){
 			int x = (xf + xi)/2;
-			int y = (xf + xi)/2;
+			int y = (yf + yi)/2;
 			grid[x][y] = 0;
+			b.setCapturePiece(xf, yf);
+		}
+		if(yf == 7 && grid[xf][yf] == 1 || yf == 0 && grid[xf][yf] == -1){
+			grid[xf][yf] *= 2;
 		}
 	}
-	/*
 	public Board changeBoard(Board b){
 		Board newb = new Board(b);
 		int[][] grid = newb.getGrid();
@@ -52,9 +55,13 @@ public class Move{
 		b.getGrid()[xi][yi] = 0;
 		if(isCapture){
 			int x = (xf + xi)/2;
-			int y = (xf + xi)/2;
+			int y = (yf + yi)/2;
 			grid[x][y] = 0;
+			newb.setCapturePiece(xf, yf);
+		}
+		if(yf == 7 && grid[xf][yf] == 1 || yf == 0 && grid[xf][yf] == -1){
+			grid[xf][yf] *= 2;
 		}
 		return newb;
-	}*/
+	}
 }

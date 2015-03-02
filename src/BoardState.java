@@ -2,7 +2,7 @@ package src;
 import java.util.HashSet;
 public class BoardState{
 	int[][] pieces;
-	Boolean forcedMoves;
+	boolean forcedMoves;
 	int turn; 
 	int[] capturePiece;
 	HashSet<Move> moves;
@@ -50,10 +50,10 @@ public class BoardState{
 		}
 	}
 	public void pieceMoves(int x, int y){
-		if(!outOfBounds(x+turn, y+turn) && pieces[x+turn][y+turn] == 0){
+		if(capturePiece[0] < 0 && !outOfBounds(x+turn, y+turn) && pieces[x+turn][y+turn] == 0){
 			moves.add(new Move(x, y, x+turn, y+turn));
 		}
-		if(!outOfBounds(x-turn, y+turn) && pieces[x-turn][y+turn] == 0){
+		if(capturePiece[0] < 0 && !outOfBounds(x-turn, y+turn) && pieces[x-turn][y+turn] == 0){
 			moves.add(new Move(x, y, x-turn, y+turn));
 		}
 		if(!outOfBounds(x+2*turn, y+2*turn) && pieces[x+turn][y+turn] == -1*turn && pieces[x+2*turn][y+2*turn] == 0){
@@ -64,10 +64,10 @@ public class BoardState{
 			moves.add(new Move(x, y, x-2*turn, y+2*turn));
 			forcedMoves = true;
 		}
-		if(Math.abs(pieces[x][y]) == 2 && !outOfBounds(x+turn, y-turn) && pieces[x+turn][y-turn] == 0){
+		if(capturePiece[0] < 0 && Math.abs(pieces[x][y]) == 2 && !outOfBounds(x+turn, y-turn) && pieces[x+turn][y-turn] == 0){
 			moves.add(new Move(x, y, x+turn, y-turn));
 		}
-		if(Math.abs(pieces[x][y]) == 2 && !outOfBounds(x-turn, y-turn) && pieces[x-turn][y-turn] == 0){
+		if(capturePiece[0] < 0 && Math.abs(pieces[x][y]) == 2 && !outOfBounds(x-turn, y-turn) && pieces[x-turn][y-turn] == 0){
 			moves.add(new Move(x, y, x-turn, y-turn));
 		}
 		if(Math.abs(pieces[x][y]) == 2 && !outOfBounds(x+2*turn, y-2*turn) && pieces[x+turn][y-turn] == -1*turn && pieces[x+2*turn][y-2*turn] == 0){
