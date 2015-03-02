@@ -38,7 +38,9 @@ public class FindBestMove{
 
             // alphabeta(origin, depth, -∞, +∞, TRUE)
     GameTree state;
+    Board main;
     public FindBestMove(Board b){
+        main = b;
         state = new GameTree(b);
     }
     public static double alphabeta(GameTree gtree, int depth){
@@ -90,9 +92,6 @@ public class FindBestMove{
         }
         this.state = branches.get(j);
         ArrayList<GameTree> bran = state.getBranches();
-        for (GameTree gt: bran){
-            System.out.println(gt);          
-        }
         return state.getBoard(); 
     }
     public static ArrayList<GameTree> expand(GameTree gt){
@@ -126,12 +125,10 @@ public class FindBestMove{
     public void findChild(){
         ArrayList<GameTree> branches = state.getBranches();
         for (GameTree gt: branches){
-            System.out.println(gt);
-            if (state.getBoard().equals(gt.getBoard())){
+            if (main.equals(gt.getBoard())){
                 state = gt;
                 return;
             }           
         }
-        System.out.println("whoops");
     }
 }

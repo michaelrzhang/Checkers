@@ -63,7 +63,6 @@ public class Board{
 			b = new BoardState(this);
 			if (b.checkValid(m)){
 				m.change(this);
-				System.out.println(Grid[m.xf()][m.yf()]);
 				b = new BoardState(this);
 				if (m.isCapture()){
 					selected = capturePiece;
