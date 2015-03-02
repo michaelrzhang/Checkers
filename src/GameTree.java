@@ -59,6 +59,7 @@ public class GameTree{
     public int getDepth(){
         return depth;
     }
+<<<<<<< HEAD
     public double eval(int player){
         double x = EvalBoard.evalBoard(board, player);
         alpha = x;
