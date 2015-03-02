@@ -3,7 +3,7 @@ import src.*;
 import lib.stdlib.*;
 import java.util.*;
 public class Board{
-	private int[][] Grid = new int[8][8]; //the Board > 0 black < 0 red
+	public int[][] Grid = new int[8][8]; //the Board > 0 black < 0 red
 	int[] selected;
 	int turn;
 	BoardState b;
@@ -140,6 +140,16 @@ public class Board{
 			return 3;
 		}
 		return 0;
+	}
+	public boolean equals(Board other){
+		for(int i = 0; i<8; i++){
+			for(int j=0; j<8;j++){
+				if(Grid[i][j] != other.Grid[i][j]){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	public void setBoard(Board b){
 		for (int i = 0; i< 8; i++){
