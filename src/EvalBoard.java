@@ -5,7 +5,7 @@ public class EvalBoard{
 
 // 10-11-12-13-14
 // 00-01-02-03-04
-    public double evalBoard(Board b){
+    public static double evalBoard(Board b){
         // hardcoding because can't think of way to put multiplier for given coordinates
         int[][] board = b.getGrid();
         int[][] multipliers = new int[8][8];
@@ -68,7 +68,7 @@ public class EvalBoard{
 
     public double evalBoardHard(Board b){
         int[][] board = b.getGrid();
-        return 0;
+        return 1.2;
     }
     public int pawnDifference(int[][] grid){
         int red = 0;

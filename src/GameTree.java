@@ -5,8 +5,8 @@ public class GameTree{
     public GameTree parent;
     public Board board;
     public ArrayList<GameTree> branches;
-    public int alpha;//min value
-    public int beta;//max value
+    public double alpha;//min value
+    public double beta;//max value
     public int depth;
     public boolean active;  // True if we should continue searching
     public boolean max;  // True if trying to find the best move, False if looking for the worse move
@@ -37,24 +37,31 @@ public class GameTree{
     }
 
     public void addBranch(Board b){
-        branches.add(GameTree(b));
+        branches.add(new GameTree(this, b));
     }
     public Board getBoard(){
         return board;
     }
-    public void setAlpha(int a){
+    public void setAlpha(double a){
         alpha = a;
     }
-    public void setBeta(int b){
+    public void setBeta(double b){
         beta = b;
+    }
+    public double getAlpha(){
+        return alpha;
+    }
+    public double getBeta(){
+        return beta;
     }
     public int getDepth(){
         return depth;
     }
-    public void eval(){
-        int x = EvalBoard(board);
+    public double eval(){
+        double x = EvalBoard.evalBoard(board);
         alpha = x;
         beta = x;
+        return x;
     }
     public boolean isMaximizing(){
         return max;
