@@ -11,7 +11,7 @@ public class ComputerMoves{
 		HashSet<Move> moves = bs.moves();
 		for (Move move : moves){
 			if(move.isCapture()){
-				multiCapture(move);
+				multiCapture(move, current);
 			}
 			else{
 				Board temp = move.changeBoard(current);
@@ -20,15 +20,15 @@ public class ComputerMoves{
 			}
 		}
 	}
-	public void multiCapture(Move m){
-		Board b = m.changeBoard(current);
+	public void multiCapture(Move m, Board b){
+		b = m.changeBoard(b);
 		BoardState bs = new BoardState(b);
 		if(bs.validMoves()){
 			HashSet<Move> moves = bs.moves();
 			for (Move move: moves){
-				multiCapture(move);
+				multiCapture(move, b);
 			}
-		} else{
+		}else {
 			b.endTurn();
 			possibleBoards.add(b);
 		}
