@@ -5,9 +5,10 @@ public class EvalBoard{
 
 // 10-11-12-13-14
 // 00-01-02-03-04
-    public double evalBoardSimple(Board b){
+    public double evalBoard(Board b){
         // hardcoding because can't think of way to put multiplier for given coordinates
-        int[] multipliers = new int[8][8];
+        int[][] board = b.getGrid();
+        int[][] multipliers = new int[8][8];
         for (int i = 0; i < 8; i += 2){
             multipliers[0][i] = 4;
         }
@@ -56,12 +57,19 @@ public class EvalBoard{
                     if (Math.abs(temp) == 2){
                         count += multipliers[i][j] * temp * 2.5;
                     }
-                    if (Math.abs(temp) == 2){
-                        count += multipliers[i][j] * temp * 2.5;
+                    if (Math.abs(temp) == 1){
+                        count += multipliers[i][j] * temp * 4;
                     }
                 }
             }
         }
         return count;
     }
+
+    public double evalBoardHard(Board b){
+        int[][] board = b.getGrid();
+    }
+
+    
+
 }
