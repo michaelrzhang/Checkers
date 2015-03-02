@@ -60,7 +60,7 @@ public class GameTree{
         return depth;
     }
     public double eval(){
-        double x = EvalBoard.evalBoardHard(board, -1);
+        double x = EvalBoard.evalBoard(board, -1);
         alpha = x;
         beta = x;
         return x;

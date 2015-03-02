@@ -5,6 +5,18 @@ public class EvalBoard{
 
 // 10-11-12-13-14
 // 00-01-02-03-04
+// 
+
+    public static double eval(Board b, int player, int strat){
+        if (strat == 0){
+            return evalBoard(b, player);
+        }
+        else if (strat == 1){
+            return evalBoardHard(b, player);
+        }
+        return evalBoard(b, player);
+    }
+    
     public static double evalBoard(Board b, int player){
         /**
          * player = -1 optimize for blue
@@ -12,9 +24,9 @@ public class EvalBoard{
          */
         // hardcoding because can't think of way to put multiplier for given coordinates
         int[][] board = b.getGrid();
-        int[][] multipliers = new int[8][8];
+        double[][] multipliers = new double[8][8];
         for (int i = 0; i < 8; i += 2){
-            multipliers[0][i] = 4;
+            multipliers[0][i] = 3.8;
         }
         multipliers[1][1] = 3;
         multipliers[1][3] = 3;
@@ -47,7 +59,7 @@ public class EvalBoard{
         multipliers[6][6] = 3;
 
         for (int i = 1; i < 8; i += 2){
-            multipliers[7][i] = 4;
+            multipliers[7][i] = 3.8;
         }
 
 // should test evalboard
