@@ -101,10 +101,10 @@ public class Board{
                     StdDraw.setPenColor(StdDraw.WHITE);
                 }
                 else if ((i + j) % 2 == 0){
-                    StdDraw.setPenColor(StdDraw.GRAY);
+                    StdDraw.setPenColor(StdDraw.BOOK_LIGHT_BLUE);
                 }
                 else{
-                    StdDraw.setPenColor(StdDraw.RED);   
+                    StdDraw.setPenColor(StdDraw.DARK_GRAY);  
                 }
                 StdDraw.filledSquare(i + .5, j + .5, 0.5);
                 if (p == -2){
