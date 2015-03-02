@@ -147,6 +147,9 @@ public class Board{
 				}
 			}
 		}
+		if (turn != other.getTurn()){
+			return false;
+		}
 		return true;
 	}
 	public void setBoard(Board b){
