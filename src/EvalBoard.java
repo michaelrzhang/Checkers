@@ -55,10 +55,10 @@ public class EvalBoard{
                 if (temp != 0){
                     assert multipliers[i][j] != 0; // DEBUGGING: to avoid stupid error where there is no multiplier
                     if (Math.abs(temp) == 2){
-                        count += multipliers[i][j] * temp * 2.5;
+                        count += temp * 2.5;
                     }
                     if (Math.abs(temp) == 1){
-                        count += multipliers[i][j] * temp * 4;
+                        count += temp * 4;
                     }
                 }
             }
@@ -68,7 +68,7 @@ public class EvalBoard{
 
     public double evalBoardHard(Board b){
         int[][] board = b.getGrid();
-        return 1.2;
+        return pawnDifference(board) + kingDifference(board) * 2 + safePawnDifference(board) * 0.5 ;
     }
     public int pawnDifference(int[][] grid){
         int red = 0;
