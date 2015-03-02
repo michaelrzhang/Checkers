@@ -1,5 +1,6 @@
 package src;
 import src.*;
+import lib.stdlib.*;
 import java.util.HashSet;
 import java.util.ArrayList;
 public class FindBestMove{
@@ -87,14 +88,19 @@ public class FindBestMove{
             }
             i += 1;
         }
-        state = branches.get(j);
+        this.state = branches.get(j);
+        ArrayList<GameTree> bran = state.getBranches();
+        for (GameTree gt: bran){
+            System.out.println(gt);          
+        }
         return state.getBoard(); 
     }
     public static ArrayList<GameTree> expand(GameTree gt){
         ComputerMoves cm = new ComputerMoves(gt.getBoard());
         ArrayList<Board> boards = cm.possibleBoards();
         for (Board b : boards){
-            System.out.println(b);
+            // b.drawBoard();
+            // StdDraw.show(3000);
             gt.addBranch(b);
         }
         return gt.getBranches();
@@ -120,9 +126,12 @@ public class FindBestMove{
     public void findChild(){
         ArrayList<GameTree> branches = state.getBranches();
         for (GameTree gt: branches){
+            System.out.println(gt);
             if (state.getBoard().equals(gt.getBoard())){
                 state = gt;
-            }
+                return;
+            }           
         }
+        System.out.println("whoops");
     }
 }
