@@ -68,6 +68,7 @@ public class Board{
 					}
 				}
 				else{
+					lastCapture += 1;
 					endTurn();
 				}
 			}

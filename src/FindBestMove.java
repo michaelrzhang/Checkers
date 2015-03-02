@@ -1,4 +1,7 @@
 package src;
+import src.*;
+import java.util.HashSet;
+import java.util.ArrayList;
 public class FindBestMove{
     /**
      * Things to consider (most important at top):
@@ -34,4 +37,76 @@ public class FindBestMove{
 
             // alphabeta(origin, depth, -∞, +∞, TRUE)
     GameTree state;
+    public FindBestMove(Board b){
+        state = GameTree(b);
+    }
+    public static Move alphabeta(GameTree gtree, int depth){
+        if (gtree.getDepth() == depth){
+            return gtree.eval(); 
+        }
+        else if (gtree.isMaximizing()){
+            ArrayList<GameTree> branches = gtree.getBranches();
+            int v = Integer.MIN_VALUE;
+            for (GameTree gt : branches){
+                v = Math.max(v, alphabeta(gt,depth));
+                gtree.setAlpha(Math.max(v, gtree.getAlpha));
+                if (gtree.getBeta() <= gtree.getAlpha()){
+                    //BREAKpls write once u understand what you are doing
+                }
+            }
+            return v;
+        }
+        else{
+            ArrayList<GameTree> branches = gtree.getBranches();
+            int v = Integer.MAX_VALUE;
+            for (GameTree gt : branches){
+                v = Math.min(v, alphabeta(gt,depth));
+                gtree.setBeta(Math.max(v, gtree.getBeta));
+                if (gtree.getBeta() <= gtree.getAlpha()){
+                    //BREAKpls write once u understand what you are doing
+                }
+            }
+            return v;
+        }
+    }
+    public Move findBest(int depth){
+        expandAll(depth);
+        int i = 0;
+        int j = 0;
+        int v;
+        max = Integer.MIN_VALUE;
+        ArrayList<GameTree> branches = state.getBranches();
+        for (GameTree gt : branches){
+            i += 1;
+            v = alphabeta(gt, depth);
+            if (v > max){
+                j = i;
+                max = v;
+            }
+        }
+        return branches.get(j).getBoard(); 
+    }
+    public ArrayList<GameTree> expand(GameTree gt){
+        ComputerMoves cm = new ComputerMoves(gt.getBoard());
+        ArrayList<Board> boards = cm.possibleBoards();
+        for (Board b : boards){
+            gt.addBranch(new GameTree(gt, b));
+        }
+        return gt.getBranches();
+    }
+    public static void expandAll(GameTree gt, int depth){
+        ArrayList<GameTree> branches = expand(gt);
+        if (gt.getDepth() == depth-1){
+            // return branches;
+        }
+        else{
+            for (GameTree b : branches){
+                expandAll(b, depth);
+            }
+            // return branches;
+        }
+    }
+    public void expandAll(int depth){
+        return expandAll(state, depth);
+    }
 }

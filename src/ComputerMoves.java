@@ -1,11 +1,11 @@
 package src;
-import java.util.HashSet;
+import java.util.ArrayList;
 public class ComputerMoves{
-	HashSet<Board> possibleBoards;
+	ArrayList<Board> possibleBoards;
 	Board current;
 	public ComputerMoves(Board b){
 		current = b;
-		possibleBoards = new HashSet<Board>();
+		possibleBoards = new ArrayList<Board>();
 		BoardState bs = new BoardState(current);
 		HashSet<Move> moves = bs.moves();
 		for (Move move : moves){
@@ -27,7 +27,7 @@ public class ComputerMoves{
 			possibleBoards.add(b);
 		}
 	}
-	public HashSet<Board> possibleBoards(){
+	public ArrayList<Board> possibleBoards(){
 		return possibleBoards;
 	}
 }
