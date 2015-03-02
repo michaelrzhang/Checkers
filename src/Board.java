@@ -144,9 +144,7 @@ public class Board{
 	public void setBoard(Board b){
 		for (int i = 0; i< 8; i++){
 			for (int j = 0; j< 8; j++){
-				if(j>=5 && (j%2 == i%2)) {
-					Grid[i][j] = b.Grid[i][j];
-				}
+				Grid[i][j] = b.Grid[i][j];
 			}
 		}
 		turn = b.turn;
@@ -162,7 +160,6 @@ public class Board{
         int y;
         Board board = new Board();
         while(board.winner() == 0){
-            board.drawBoard();
             if (StdDraw.mousePressed()){
                 x = (int) StdDraw.mouseX();
                 y = (int) StdDraw.mouseY();

@@ -77,12 +77,12 @@ public class FindBestMove{
         double max = Integer.MIN_VALUE;
         ArrayList<GameTree> branches = state.getBranches();
         for (GameTree gt : branches){
-            i += 1;
             v = alphabeta(gt, depth);
             if (v > max){
                 j = i;
                 max = v;
             }
+            i += 1;
         }
         return branches.get(j).getBoard(); 
     }
@@ -95,6 +95,7 @@ public class FindBestMove{
         return gt.getBranches();
     }
     public static void expandAll(GameTree gt, int depth){
+        System.out.println("hi" + depth);
         ArrayList<GameTree> branches = expand(gt);
         if (gt.getDepth() == depth-1){
             // return branches;

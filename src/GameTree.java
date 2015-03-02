@@ -20,8 +20,9 @@ public class GameTree{
         beta = Integer.MAX_VALUE;
     }
     public GameTree(Board b){
-        this.board = board;
+        this.board = b;
         this.parent = parent;
+        branches = new ArrayList<GameTree>();
         max = true;
         depth = 0;
         alpha = Integer.MIN_VALUE;
@@ -30,7 +31,8 @@ public class GameTree{
     public GameTree(GameTree parent, Board b){
         this.parent = parent;
         max = !parent.max;
-        this.board = board;
+        this.board = b;
+        branches = new ArrayList<GameTree>();
         depth = parent.depth+1;
         alpha = Integer.MIN_VALUE;
         beta = Integer.MAX_VALUE;
