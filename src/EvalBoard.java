@@ -55,15 +55,15 @@ public class EvalBoard{
                 if (temp != 0){
                     assert multipliers[i][j] != 0; // DEBUGGING: to avoid stupid error where there is no multiplier
                     if (Math.abs(temp) == 2){
-                        count += temp * 2.5;
+                        count += temp * 2.5 * multipliers[i][j];
                     }
                     if (Math.abs(temp) == 1){
-                        count += temp * 4;
+                        count += temp * 4 * multipliers[i][j];
                     }
                 }
             }
         }
-        return count;
+        return count * -1;
     }
 
     public double evalBoardHard(Board b){
