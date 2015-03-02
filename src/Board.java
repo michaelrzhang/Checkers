@@ -26,9 +26,28 @@ public class Board{
 		lastCapture = 0;
 		capturePiece = new int[] {-1,-1};
 		selected = new int[] {-1,-1};
-		b = new BoardState(this);
-		
+		b = new BoardState(this);	
 	}
+	public Board(Board board){
+		for (int i = 0; i< 8; i++){
+			for (int j = 0; j< 8; j++)
+				if(j>=5 && (j%2 == i%2)) {
+					Grid[i][j] = board.Grid[i][j];
+				}
+				else if (j <= 2 && (j%2==i%2)){
+					Grid[i][j] = board.Grid[i][j];
+				}
+				else{
+					Grid[i][j] = board.Grid[i][j];
+				}
+		}
+		turn = board.turn;
+		lastCapture = board.lastCapture;
+		capturePiece = board.capturePiece;
+		selected = board.selected;
+		b = new BoardState(this);
+	}
+
 	public void select(int x, int y){
 		if (turn*Grid[x][y] > 0){
 			selected = new int[] {x,y};
@@ -39,11 +58,12 @@ public class Board{
 			if (b.checkValid(m)){
 				m.change(this);
 				b = new BoardState(this);
+				System.out.println(m.isCapture());
 				if (m.isCapture()){
-					capturePiece[0]=  m.xf();
-					capturePiece[1] = m.yf();
 					selected = capturePiece;
+					System.out.println(b.moves().size());
 					if (!b.validMoves()){
+						System.out.println("ended turn");
 						endTurn();
 					}
 				}
@@ -57,6 +77,7 @@ public class Board{
 		turn = turn*-1;
 		selected = new int[] {-1, -1};
 		capturePiece = new int[] {-1, -1};
+		b = new BoardState(this);
 	}
 	public int[][] getGrid(){
 		return Grid;
@@ -107,6 +128,9 @@ public class Board{
 	public int winner(){
 		if (!b.validMoves()){
 			return turn * -1;
+		}
+		else if (lastCapture > 40){
+			return 3;
 		}
 		return 0;
 	}
