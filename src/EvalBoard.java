@@ -70,12 +70,12 @@ public class EvalBoard{
         return count * player;
     }
 
-    public double evalBoardHard(Board b){
+    public static double evalBoardHard(Board b, int player){
         int[][] board = b.getGrid();
-        return pawnDifference(board)*3 + kingDifference(board) * 5 + safePawnDifference(board) * 1;
+        return player *(pawnDifference(board)*3 + kingDifference(board) * 5 + safePawnDifference(board) * 1);
     }
 
-    public int pawnDifference(int[][] grid){
+    public static int pawnDifference(int[][] grid){
         int red = 0;
         int blue = 0;
         for (int i = 0; i < grid.length; i += 1)
@@ -88,7 +88,7 @@ public class EvalBoard{
             }
         return red - blue;
     }
-    public int kingDifference(int[][] grid){
+    public static int kingDifference(int[][] grid){
         int red = 0;
         int blue = 0;
         for (int i = 0; i < grid.length; i += 1)
@@ -101,7 +101,7 @@ public class EvalBoard{
             }
         return red - blue;
     }
-    public int safePawnDifference(int[][] grid){
+    public static int safePawnDifference(int[][] grid){
         int red = 0;
         int blue = 0;
         int[] edges = new int[] {0,7};
@@ -115,7 +115,7 @@ public class EvalBoard{
             }
         return red - blue;
     }
-    public int safeKingDifference(int[][] grid){
+    public static int safeKingDifference(int[][] grid){
         int red = 0;
         int blue = 0;
         int[] edges = new int[] {0,7};
@@ -129,7 +129,7 @@ public class EvalBoard{
             }
         return red - blue;
     }
-    public int promotionLineDifference(int[][] grid){
+    public static int promotionLineDifference(int[][] grid){
         int red = 0;
         int blue = 0;
         for (int i = 0; i< grid.length; i += 1)
