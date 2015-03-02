@@ -38,11 +38,13 @@ public class Move{
 		int[][] grid = b.getGrid();
 		grid[xf][yf] = grid[xi][yi];
 		b.getGrid()[xi][yi] = 0;
+		b.addLastCapture(1);
 		if(isCapture){
 			int x = (xf + xi)/2;
 			int y = (yf + yi)/2;
 			grid[x][y] = 0;
 			b.setCapturePiece(xf, yf);
+			b.setLastCapture(0);
 		}
 		if(yf == 7 && grid[xf][yf] == 1 || yf == 0 && grid[xf][yf] == -1){
 			grid[xf][yf] = 2* b.getTurn();

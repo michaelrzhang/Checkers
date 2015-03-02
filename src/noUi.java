@@ -2,7 +2,7 @@ package src;
 import src.*;
 import lib.stdlib.*;
 import java.util.*;
-public class AiVsAi{
+public class noUi{
 	public static void main(String[] args){
 		StdDraw.setXscale(0, 8);
         StdDraw.setYscale(0, 8);
@@ -11,7 +11,6 @@ public class AiVsAi{
         Board board = new Board();
         FindBestMove CompMove2 = new FindBestMove(board, -1,0);
         FindBestMove CompMove1 = new FindBestMove(board, 1,1);
-        board.drawBoard();
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
         		board.setBoard(CompMove2.findBest(6));
@@ -19,8 +18,6 @@ public class AiVsAi{
             else{
                 board.setBoard(CompMove1.findBest(6));
             }
-            board.drawBoard();
-            StdDraw.show(1);
         }
         System.out.println(board.winner());
     }

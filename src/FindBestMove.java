@@ -52,9 +52,12 @@ public class FindBestMove{
             return gtree.eval(turn, strat); 
         }
         else if (gtree.isMaximizing()){
-            ArrayList<GameTree> branches = gtree.getBranches();
             double v = Integer.MIN_VALUE;
-            for (GameTree gt : branches){
+            for (GameTree gt : gtree.getBranches()){
+                if (System.nanoTime() - time > 1 * Math.pow(10, 9)){
+                    System.out.println(System.nanoTime() - time);
+                    return v;
+                }
                 v = Math.max(v, alphabeta(gt,depth, turn,strat, time));
                 gtree.setAlpha(Math.max(v, gtree.getAlpha()));
                 if (gtree.getBeta() <= gtree.getAlpha()){
@@ -64,10 +67,10 @@ public class FindBestMove{
             return v;
         }
         else{
-            ArrayList<GameTree> branches = gtree.getBranches();
             double v = Integer.MAX_VALUE;
-            for (GameTree gt : branches){
-                if (System.nanoTime() - time < 10 * Math.pow(10, 9)){
+            for (GameTree gt : gtree.getBranches()){
+                if (System.nanoTime() - time > 1 * Math.pow(10, 9)){
+                    System.out.println(System.nanoTime() - time);
                     return v;
                 }
                 v = Math.min(v, alphabeta(gt,depth, turn,strat, time));
@@ -86,42 +89,40 @@ public class FindBestMove{
         depth+= state.getDepth();
         expandAll(depth);
         int i = 0;
-        int j = 0;
+        GameTree bran = new GameTree();
         double v;
         double max = Integer.MIN_VALUE;
-        ArrayList<GameTree> branches = state.getBranches();
-        for (GameTree gt : branches){
+        for (GameTree gt : state.getBranches()){
             v = alphabeta(gt, depth, turn,strat,time);
             if (v > max){
-                j = i;
+                bran = gt;
                 max = v;
             }
             i += 1;
-            if (System.nanoTime() - time < 10 * Math.pow(10, 9)){
+            if (System.nanoTime() - time > 1 * Math.pow(10, 9)){
+                System.out.println(System.nanoTime() - time);
                 break;
             }
         }
-        this.state = branches.get(j);
-        ArrayList<GameTree> bran = state.getBranches();
+        this.state = bran;
+        state.cutParent();
         return state.getBoard(); 
     }
-    public static ArrayList<GameTree> expand(GameTree gt){
-        ComputerMoves cm = new ComputerMoves(gt.getBoard());
-        ArrayList<Board> boards = cm.possibleBoards();
-        for (Board b : boards){
+    public static void expand(GameTree gt){
+        for (Board b : (new ComputerMoves(gt.getBoard())).possibleBoards()){
             // b.drawBoard();
             // StdDraw.show(3000);
             gt.addBranch(b);
         }
-        return gt.getBranches();
+        // return gt.getBranches();
     }
     public static void expandAll(GameTree gt, int depth){
-        ArrayList<GameTree> branches = expand(gt);
+        expand(gt);
         if (gt.getDepth() == depth-1){
             // return branches;
         }
         else{
-            for (GameTree b : branches){
+            for (GameTree b : gt.getBranches()){
                 expandAll(b, depth);
             }
             // return branches;
@@ -134,10 +135,11 @@ public class FindBestMove{
         state.removeBranches();
     }
     public void findChild(){
-        ArrayList<GameTree> branches = state.getBranches();
-        for (GameTree gt: branches){
+        for (GameTree gt: state.getBranches()){
             if (main.equals(gt.getBoard())){
                 state = gt;
+                state.cutParent();
+                state.cutBranches();
                 return;
             }           
         }

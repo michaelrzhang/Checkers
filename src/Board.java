@@ -71,7 +71,6 @@ public class Board{
 					}
 				}
 				else{
-					lastCapture += 1;
 					endTurn();
 				}
 			}
@@ -138,6 +137,10 @@ public class Board{
 		}
 		return 0;
 	}
+	public void endGame(){
+		System.out.println(winner());
+		drawBoard();
+	}
 	public boolean equals(Board other){
 		for(int i = 0; i<8; i++){
 			for(int j=0; j<8;j++){
@@ -152,18 +155,29 @@ public class Board{
 		return true;
 	}
 	public void setBoard(Board b){
-		for (int i = 0; i< 8; i++){
-			for (int j = 0; j< 8; j++){
-				Grid[i][j] = b.Grid[i][j];
-			}
+		if (b == null){
+			endGame();
 		}
-		turn = b.turn;
-		lastCapture = b.lastCapture;
-		capturePiece = b.capturePiece;
-		selected = b.selected;
-		this.b = new BoardState(this);
+		else{
+			for (int i = 0; i< 8; i++){
+				for (int j = 0; j< 8; j++){
+					Grid[i][j] = b.Grid[i][j];
+				}
+			}
+			turn = b.turn;
+			lastCapture = b.lastCapture;
+			capturePiece = b.capturePiece;
+			System.out.println(capturePiece[0]);
+			selected = b.selected;
+			this.b = new BoardState(this);
+		}
 	}
-
+	public void setLastCapture(int x){
+		lastCapture = x;
+	}
+	public void addLastCapture(int x){
+		lastCapture += x;
+	}
     public void printBoard(){
         int val;
         for (int i = 0; i< 8; i++){

@@ -65,6 +65,12 @@ public class GameTree{
         beta = x;
         return x;
     }
+    public void cutParent(){
+        parent = null;
+    }
+    public void cutBranches(){
+        branches.clear();
+    }
     public boolean isMaximizing(){
         return max;
     }
