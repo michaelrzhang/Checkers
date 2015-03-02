@@ -72,6 +72,7 @@ public class FindBestMove{
     public Board findBest(int depth){
         // flatten();
         findChild();
+        depth+= state.getDepth();
         expandAll(depth);
         int i = 0;
         int j = 0;
@@ -93,12 +94,12 @@ public class FindBestMove{
         ComputerMoves cm = new ComputerMoves(gt.getBoard());
         ArrayList<Board> boards = cm.possibleBoards();
         for (Board b : boards){
+            System.out.println(b);
             gt.addBranch(b);
         }
         return gt.getBranches();
     }
     public static void expandAll(GameTree gt, int depth){
-        System.out.println("hi" + depth);
         ArrayList<GameTree> branches = expand(gt);
         if (gt.getDepth() == depth-1){
             // return branches;

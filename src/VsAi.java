@@ -11,9 +11,8 @@ public class VsAi{
         Board board = new Board();
         FindBestMove CompMove = new FindBestMove(board);
         while(board.winner() == 0){
-            System.out.println(board.getTurn());
         	if (board.getTurn() == -1){
-        		board.setBoard(CompMove.findBest(3));
+        		board.setBoard(CompMove.findBest(1));
         	}
             else if (StdDraw.mousePressed()){
                 x = (int) StdDraw.mouseX();
