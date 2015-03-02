@@ -5,7 +5,11 @@ public class EvalBoard{
 
 // 10-11-12-13-14
 // 00-01-02-03-04
-    public static double evalBoard(Board b){
+    public static double evalBoard(Board b, int player){
+        /**
+         * player = -1 optimize for blue
+         * player = 1 optimize for red
+         */
         // hardcoding because can't think of way to put multiplier for given coordinates
         int[][] board = b.getGrid();
         int[][] multipliers = new int[8][8];
@@ -63,7 +67,7 @@ public class EvalBoard{
                 }
             }
         }
-        return count * -1;
+        return count * player;
     }
 
     public double evalBoardHard(Board b){
