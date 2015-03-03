@@ -1,6 +1,5 @@
 package src;
 import src.*;
-import lib.stdlib.*;
 import java.util.*;
 public class Board{
 	public int[][] Grid = new int[8][8]; //the Board > 0 black < 0 red
@@ -91,36 +90,6 @@ public class Board{
 	public int getTurn(){
 		return turn;
 	}
-	public void drawBoard(){
-		int p;
-        for (int i= 0; i < 8; i++){
-            for (int j = 0; j < 8; j++){
-            	p = Grid[i][j];
-                if ((selected[0]==i) && (selected[1]==j)){
-                    StdDraw.setPenColor(StdDraw.WHITE);
-                }
-                else if ((i + j) % 2 == 0){
-                    StdDraw.setPenColor(StdDraw.BOOK_LIGHT_BLUE);
-                }
-                else{
-                    StdDraw.setPenColor(StdDraw.DARK_GRAY);  
-                }
-                StdDraw.filledSquare(i + .5, j + .5, 0.5);
-                if (p == -2){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-water-crowned.png", 1, 1);
-                }
-                else if (p == -1){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-water.png", 1, 1);
-                }
-                else if (p == 1){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire.png", 1, 1);	
-                }
-                else if (p == 2){
-                	StdDraw.picture(i + .5, j + .5, "img/pawn-fire-crowned.png", 1, 1);
-                }
-            }
-        }
-	}
 	public int[] capturePiece(){
 		return capturePiece;
 	}
@@ -139,7 +108,6 @@ public class Board{
 	}
 	public void endGame(){
 		System.out.println(winner());
-		drawBoard();
 	}
 	public boolean equals(Board other){
 		for(int i = 0; i<8; i++){
@@ -197,21 +165,4 @@ public class Board{
         }
     }
 
-	public static void main(String args[]){
-		StdDraw.setXscale(0, 8);
-        StdDraw.setYscale(0, 8);
-        int x;
-        int y;
-        Board board = new Board();
-        while(board.winner() == 0){
-            if (StdDraw.mousePressed()){
-                x = (int) StdDraw.mouseX();
-                y = (int) StdDraw.mouseY();
-                board.select(x,y);
-            }
-            board.drawBoard();
-            StdDraw.show(1);
-        }
-        System.out.println(board.winner());
-    }
 }

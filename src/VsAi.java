@@ -8,7 +8,7 @@ public class VsAi{
         StdDraw.setYscale(0, 8);
         int x;
         int y;
-        Board board = new Board();
+        DrawBoard board = new DrawBoard();
         FindBestMove CompMove2 = new FindBestMove(board, -1, 0);
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
