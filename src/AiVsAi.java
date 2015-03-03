@@ -14,10 +14,10 @@ public class AiVsAi{
         board.drawBoard();
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
-        		board.setBoard(CompMove2.findBest(6));
+        		board.setBoard(CompMove2.findBest(5));
         	}
             else{
-                board.setBoard(CompMove1.findBest(6));
+                board.setBoard(CompMove1.findBest(5));
             }
             board.drawBoard();
             StdDraw.show(1);
