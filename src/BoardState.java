@@ -41,8 +41,8 @@ public class BoardState{
 			}
 		}
 		if(forcedMoves){
-			HashSet<Move> m = new HashSet<Move>(moves);
-			for(Move move : m){
+			// HashSet<Move> m = new HashSet<Move>(moves);
+			for(Move move : new HashSet<Move>(moves)){
 				if(!move.isCapture()){
 					moves.remove(move);
 				}
