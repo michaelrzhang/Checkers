@@ -67,7 +67,7 @@ public class FindBestMove{
             ArrayList<GameTree> branches = gtree.getBranches();
             double v = Integer.MAX_VALUE;
             for (GameTree gt : branches){
-                if (System.nanoTime() - time < 10 * Math.pow(10, 9)){
+                if (System.nanoTime() - time < 7 * Math.pow(10, 9)){
                     return v;
                 }
                 v = Math.min(v, alphabeta(gt,depth, turn,strat, time));
@@ -97,7 +97,7 @@ public class FindBestMove{
                 max = v;
             }
             i += 1;
-            if (System.nanoTime() - time < 10 * Math.pow(10, 9)){
+            if (System.nanoTime() - time < 7 * Math.pow(10, 9)){
                 break;
             }
         }

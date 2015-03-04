@@ -11,6 +11,7 @@ public class AiVsAi{
         Board board = new Board();
         FindBestMove CompMove2 = new FindBestMove(board, -1,0);
         FindBestMove CompMove1 = new FindBestMove(board, 1,1);
+        board.drawBoard();
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
         		board.setBoard(CompMove2.findBest(5));
@@ -19,7 +20,7 @@ public class AiVsAi{
                 board.setBoard(CompMove1.findBest(5));
             }
             board.drawBoard();
-            StdDraw.show(1);
+            StdDraw.show(20);
         }
         System.out.println(board.winner());
     }
