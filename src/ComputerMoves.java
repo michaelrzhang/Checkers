@@ -34,9 +34,9 @@ public class ComputerMoves{
 		}
 	}
 	public ArrayList<Board> possibleBoards(){
-		if (possibleBoards.size() == 0){
-			current.endGame(); // still need to figure out
-		}
+		// if (possibleBoards.size() == 0){
+		// 	current.endGame(); // still need to figure out
+		// }
 		return possibleBoards;
 	}
 }

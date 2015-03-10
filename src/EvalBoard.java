@@ -62,6 +62,20 @@ public class EvalBoard{
             multipliers[7][i] = 3.8;
         }
 
+        if (player == -1) {
+            int red = countRedPieces(board);
+            if (red == 0) {
+                return 1000;
+            }
+        }
+
+        if (player == 1) {
+            int blue = countBluePieces(board);
+            if (blue == 0) {
+                return 1000;
+            }
+        }
+
 // should test evalboard
         double count = 0;
         int temp;
@@ -84,7 +98,42 @@ public class EvalBoard{
 
     public static double evalBoardHard(Board b, int player){
         int[][] board = b.getGrid();
+        if (player == -1) {
+            int red = countRedPieces(board);
+            if (red == 0) {
+                return 1000;
+            }
+        }
+
+        if (player == 1) {
+            int blue = countBluePieces(board);
+            if (blue == 0) {
+                return 1000;
+            }
+        }
         return player *(pawnDifference(board)*3 + kingDifference(board) * 5 + safePawnDifference(board) * 1);
+    }
+
+    public static int countBluePieces(int[][] grid) {
+        int blue = 0;
+        for (int i = 0; i < grid.length; i += 1)
+            for(int j = 0; j < grid[0].length; j += 1){
+                if(grid[i][j] == -1){
+                    blue += 1;
+                }
+            }
+        return blue;
+    }
+
+    public static int countRedPieces(int[][] grid) {
+        int red = 0;
+        for (int i = 0; i < grid.length; i += 1)
+            for(int j = 0; j < grid[0].length; j += 1){
+                if(grid[i][j] == -1){
+                    red += 1;
+                }
+            }
+        return red;
     }
 
     public static int pawnDifference(int[][] grid){

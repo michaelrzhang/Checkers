@@ -20,7 +20,7 @@ public class AiVsAi{
                 board.setBoard(CompMove1.findBest(8));
             }
             board.drawBoard();
-            StdDraw.show(1);
+            StdDraw.show(20);
         }
         System.out.println(board.winner());
     }
