@@ -138,7 +138,7 @@ public class FindBestMove{
         for (GameTree gt: state.getBranches()){
             if (main.equals(gt.getBoard())){
                 state = gt;
-                state.cutParent();
+                // state.cutParent();
                 state.cutBranches();
                 return;
             }           
