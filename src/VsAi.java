@@ -12,7 +12,7 @@ public class VsAi{
         FindBestMove CompMove2 = new FindBestMove(board, -1, 0);
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
-        		board.setBoard(CompMove2.findBest(6));
+        		board.setBoard(CompMove2.findBest(5));
         	}
             else if (StdDraw.mousePressed()){
                 x = (int) StdDraw.mouseX();

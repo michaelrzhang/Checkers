@@ -167,7 +167,6 @@ public class Board{
 			turn = b.turn;
 			lastCapture = b.lastCapture;
 			capturePiece = b.capturePiece;
-			System.out.println(capturePiece[0]);
 			selected = b.selected;
 			this.b = new BoardState(this);
 		}
