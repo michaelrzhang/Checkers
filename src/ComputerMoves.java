@@ -1,25 +1,33 @@
 package src;
+
 import java.util.ArrayList;
 import java.util.HashSet;
+/** 
+ * Returns set of possible computer moves
+ */
 public class ComputerMoves{
-	ArrayList<Board> possibleBoards;
-	Board current;
+	ArrayList<Board> possibleBoards; // all possible boards
+	Board current; // current Board
 	public ComputerMoves(Board b){
 		current = b;
 		possibleBoards = new ArrayList<Board>();
 		BoardState bs = new BoardState(current);
 		HashSet<Move> moves = bs.moves();
+		Board temp;
 		for (Move move : moves){
 			if(move.isCapture()){
 				multiCapture(move, current);
 			}
 			else{
-				Board temp = move.changeBoard(current);
+			// non capture moves
+				temp = move.changeBoard(current);
 				temp.endTurn();
+				temp.addLastCapture(1);
 				possibleBoards.add(temp);
 			}
 		}
 	}
+	/** Accounts for multiple captures */
 	public void multiCapture(Move m, Board b){
 		b = m.changeBoard(b);
 		BoardState bs = new BoardState(b);
@@ -30,6 +38,7 @@ public class ComputerMoves{
 			}
 		}else {
 			b.endTurn();
+			b.setLastCapture(0);
 			possibleBoards.add(b);
 		}
 	}
