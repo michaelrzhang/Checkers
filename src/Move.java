@@ -5,14 +5,14 @@ public class Move{
 	public int yi;
 	public int xf;
 	public int yf;
-	public Move(int xi, int yi, int xf, int yf){
+	public Move(int xi, int yi, int xf, int yf) {
 		this.xi = xi;
 		this.yi = yi;
 		this.xf = xf;
 		this.yf = yf;
-		if(Math.abs(xi - xf) == 2){
+		if (Math.abs(xi - xf) == 2){
 			isCapture = true;
-		}else{
+		} else {
 			isCapture = false;
 		}
 	}

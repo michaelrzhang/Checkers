@@ -1,6 +1,10 @@
 package src;
+
 import java.util.ArrayList;
 import java.util.HashSet;
+/** 
+ * Returns set of possible computer moves
+ */
 public class ComputerMoves{
 	ArrayList<Board> possibleBoards;
 	Board current;
