@@ -9,8 +9,8 @@ public class AiVsAi{
         int x;
         int y;
         DrawBoard board = new DrawBoard();
-        FindBestMove CompMove2 = new FindBestMove(board, -1,1);
-        FindBestMove CompMove1 = new FindBestMove(board, 1,1);
+        AlphaBetaSearch CompMove2 = new AlphaBetaSearch(board, -1,1);
+        AlphaBetaSearch CompMove1 = new AlphaBetaSearch(board, 1,1);
         board.drawBoard();
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
