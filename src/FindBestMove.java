@@ -4,6 +4,11 @@ import lib.stdlib.*;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.lang.NullPointerException;
+/**
+ * Expads the tree
+ * Evaluates the child
+ * Alpha Beta pruning
+ */
 public class FindBestMove{
     /**
      * Things to consider (most important at top):
@@ -48,6 +53,9 @@ public class FindBestMove{
         this.turn = turn;
         this.strat = strat;
     }
+    /** 0 is the cutoff between winning and losing
+    minimizing one triesot mimimize beta
+    maximing one tries to maximize alpha */
     public static double alphabeta(GameTree gtree, int depth, int turn, int strat, long time){
         if (gtree.getDepth() == depth){
             return gtree.eval(turn, strat); 
@@ -117,6 +125,7 @@ public class FindBestMove{
         this.state = bran;
         return state.getBoard(); 
     }
+    /** Creates children */
     public static void expand(GameTree gt, int turn){
         if (gt.getWinner(turn) == 0){
             for (Board b : (new ComputerMoves(gt.getBoard())).possibleBoards()){
@@ -128,6 +137,12 @@ public class FindBestMove{
             System.out.println(gt.getWinner(turn));
         }
     }
+    /** Calls expand on each of its children 
+        Stops under two conditions:
+            depth (distance from the initial) reaches desired
+            someone wins
+    */
+
     public static void expandAll(GameTree gt, int depth, int turn){
         if (gt.getBoard() == null){
             System.out.println(turn);
@@ -139,6 +154,7 @@ public class FindBestMove{
         if (gt.getDepth() == depth-1){
             // return branches;
         }
+        // does not expand when someone won
         else if(gt.getBranches() == null){
         }
         else{
@@ -154,6 +170,7 @@ public class FindBestMove{
     public void flatten(){
         state.removeBranches();
     }
+    /** Finds the child that the opponent is using */
     public void findChild(){
         for (GameTree gt: state.getBranches()){
             if (main.equals(gt.getBoard())){

@@ -7,7 +7,7 @@ public class Board{
 	int turn;
 	BoardState b;
 	int lastCapture; // number of moves since last Capture
-	int[] capturePiece;
+	int[] capturePiece; // piece that captures
 	public Board(){
 		for (int i = 0; i< 8; i++){
 			for (int j = 0; j< 8; j++)
@@ -27,19 +27,30 @@ public class Board{
 		selected = new int[] {-1,-1};
 		b = new BoardState(this);	
 	}
+
+	/** Creates an empty board if EMPTY is false */
 	public Board(boolean empty){
-		for (int i = 0; i< 8; i++)
-			for (int j = 0; j< 8; j++)
-				Grid[i][j] = 0;	
-		turn = 1;
-		lastCapture = 0;
-		capturePiece = new int[] {-1,-1};
-		selected = new int[] {-1,-1};
-		b = new BoardState(this);
+		if (!empty) {
+			for (int i = 0; i< 8; i++)
+				for (int j = 0; j< 8; j++)
+					Grid[i][j] = 0;	
+			turn = 1;
+			lastCapture = 0;
+			capturePiece = new int[] {-1,-1};
+			selected = new int[] {-1,-1};
+			b = new BoardState(this);
+		}
 	}
+
 	public void addPiece(int[] location, int type){
 		Grid[location[0]][location[1]] = type; 
 	}
+
+	public void addPiece(int x, int y, int type){
+		Grid[x][y] = type; 
+	}
+
+	/** Copy constructor */
 	public Board(Board board){
 		for (int i = 0; i< 8; i++){
 			for (int j = 0; j< 8; j++){
@@ -53,6 +64,7 @@ public class Board{
 		b = new BoardState(this);
 	}
 
+	/** Selects a piece, only relevant for humans */
 	public void select(int x, int y){
 		if (turn*Grid[x][y] > 0){
 			selected = new int[] {x,y};
@@ -90,6 +102,7 @@ public class Board{
 	public int getTurn(){
 		return turn;
 	}
+	/** Returns the piece that captures */
 	public int[] capturePiece(){
 		return capturePiece;
 	}
@@ -122,6 +135,11 @@ public class Board{
 		}
 		return true;
 	}
+	/** 
+	 * How a computer makes a move, updates board to new board
+	 * Do not want to make a new instance of board
+	 * Essentially creating a copy, but pointing to original instance
+	 */
 	public void setBoard(Board b){
 		if (b == null){
 			System.out.println("no moves");

@@ -1,17 +1,20 @@
 package src;
 import java.util.ArrayList;
 import src.*;
+
+/** Alternates between choosing best move for you and worst move for you */
 public class GameTree{
     public GameTree parent;
     public Board board;
     public ArrayList<GameTree> branches;
-    public double alpha;//min value
-    public double beta;//max value
+    public double alpha; //Integer.min value, value that you want to maximize
+    public double beta; //Integer.max value, value that you want to minimize
     public int depth;
     public boolean active;  // True if we should continue searching
     public boolean max;  // True if trying to find the best move, False if looking for the worse move
     public int winner = -10;
-
+    
+    /** Should never actually use this constructor*/
     public GameTree(){
         branches = new ArrayList<GameTree>();
         parent = null;
@@ -20,15 +23,17 @@ public class GameTree{
         alpha = Integer.MIN_VALUE;
         beta = Integer.MAX_VALUE;
     }
+    /** Root board */
     public GameTree(Board b){
         this.board = b;
-        this.parent = parent;
+        this.parent = null;
         branches = new ArrayList<GameTree>();
         max = true;
         depth = 0;
         alpha = Integer.MIN_VALUE;
         beta = Integer.MAX_VALUE;
     }
+    /** All other boards */
     public GameTree(GameTree parent, Board b){
         this.parent = parent;
         max = !parent.max;
@@ -81,6 +86,11 @@ public class GameTree{
     public void removeBranches(){
         branches = new ArrayList<GameTree>();
     }
+    /** No valid moves left, returns the winner */
+    /**
+     * -1 Blue won   0 Tie     1 Red won
+     * @param  player the current player
+     */
     public int getWinner(int player){
         if (winner == -10){
             winner = board.winner() * player;
