@@ -10,6 +10,7 @@ public class GameTree{
     public int depth;
     public boolean active;  // True if we should continue searching
     public boolean max;  // True if trying to find the best move, False if looking for the worse move
+    public int winner = -10;
 
     public GameTree(){
         branches = new ArrayList<GameTree>();
@@ -81,6 +82,9 @@ public class GameTree{
         branches = new ArrayList<GameTree>();
     }
     public int getWinner(int player){
-        return board.winner();
+        if (winner == -10){
+            winner = board.winner() * player;
+        }
+        return winner; 
     }
 }

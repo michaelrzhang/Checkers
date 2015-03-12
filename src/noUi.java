@@ -10,10 +10,10 @@ public class noUi{
         FindBestMove CompMove1 = new FindBestMove(board, 1,1);
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
-        		board.setBoard(CompMove2.findBest(10));
+        		board.setBoard(CompMove2.findBest(7));
         	}
             else{
-                board.setBoard(CompMove1.findBest(10));
+                board.setBoard(CompMove1.findBest(7));
             }
         }
         System.out.println(board.winner());

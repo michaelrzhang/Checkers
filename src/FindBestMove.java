@@ -58,10 +58,13 @@ public class FindBestMove{
         else if (gtree.getWinner(turn) == -1){
             return Integer.MIN_VALUE;
         }
+        else if (Math.abs(gtree.getWinner(turn)) == 3){
+            return 0;
+        }
         else if (gtree.isMaximizing()){
             double v = Integer.MIN_VALUE;
             for (GameTree gt : gtree.getBranches()){
-                if (System.nanoTime() - time > 1 * Math.pow(10, 9)){
+                if (System.nanoTime() - time > 10 * Math.pow(10, 9)){
                     System.out.println(System.nanoTime() - time);
                     return v;
                 }
@@ -76,7 +79,7 @@ public class FindBestMove{
         else{
             double v = Integer.MAX_VALUE;
             for (GameTree gt : gtree.getBranches()){
-                if (System.nanoTime() - time > 1 * Math.pow(10, 9)){
+                if (System.nanoTime() - time > 10 * Math.pow(10, 9)){
                     System.out.println(System.nanoTime() - time);
                     return v;
                 }
@@ -94,24 +97,19 @@ public class FindBestMove{
         long time = System.nanoTime();
         findChild();
         depth += state.getDepth();
-        // try{
         expandAll(depth, turn);
-        // }
-        // catch (NullPointerException e){
-        //     System.out.println("expanding fails");
-        // }
         int i = 0;
         GameTree bran = new GameTree();
         double v;
         double max = Integer.MIN_VALUE;
         for (GameTree gt : state.getBranches()){
             v = alphabeta(gt, depth, turn,strat,time);
-            if (v > max){
+            if (v >= max){
                 bran = gt;
                 max = v;
             }
             i += 1;
-            if (System.nanoTime() - time > 1 * Math.pow(10, 9)){
+            if (System.nanoTime() - time > 10 * Math.pow(10, 9)){
                 System.out.println(System.nanoTime() - time);
                 break;
             }
@@ -122,22 +120,26 @@ public class FindBestMove{
     public static void expand(GameTree gt, int turn){
         if (gt.getWinner(turn) == 0){
             for (Board b : (new ComputerMoves(gt.getBoard())).possibleBoards()){
-                // b.drawBoard();
-                // StdDraw.show(3000);
                 gt.addBranch(b);
             }
         }
-        // return gt.getBranches();
+        else {
+            System.out.println("setting board");
+            System.out.println(gt.getWinner(turn));
+        }
     }
     public static void expandAll(GameTree gt, int depth, int turn){
-        if (gt.getWinner(turn) == 0){            
+        if (gt.getBoard() == null){
+            System.out.println(turn);
+            throw new IllegalArgumentException();
+        }
+        else if (gt.getWinner(turn) == 0){            
             expand(gt, turn);
         }
         if (gt.getDepth() == depth-1){
             // return branches;
         }
         else if(gt.getBranches() == null){
-
         }
         else{
             for (GameTree b : gt.getBranches()){
@@ -156,6 +158,7 @@ public class FindBestMove{
         for (GameTree gt: state.getBranches()){
             if (main.equals(gt.getBoard())){
                 state = gt;
+                // state.cutParent();
                 state.cutBranches();
                 return;
             }           

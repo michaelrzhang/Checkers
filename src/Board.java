@@ -124,6 +124,7 @@ public class Board{
 	}
 	public void setBoard(Board b){
 		if (b == null){
+			System.out.println("no moves");
 			endGame();
 		}
 		else{
