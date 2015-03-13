@@ -119,6 +119,21 @@ public class Board{
 		}
 		return 0;
 	}
+	public void winnerString() {
+		if (winner() == 1) {
+			System.out.println("red player1 won!");
+		}
+		else if (winner() == -1) {
+			System.out.println("blue player2 won!");
+		}
+		else if (winner() == 3) {
+			System.out.println("tie due to no captures in 40 moves.");
+		}
+		else {
+			System.out.println("ERROR: GAME ENDED EARLY!");
+		}
+	}
+
 	public void endGame(){
 		System.out.println(winner());
 	}
