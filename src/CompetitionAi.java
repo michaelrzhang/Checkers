@@ -1,26 +1,23 @@
 package src;
-import src.*;
 import lib.stdlib.*;
 import java.util.*;
-public class AiVsAi{
+public class CompetitionAi{
 	public static void main(String[] args){
 		StdDraw.setXscale(0, 8);
         StdDraw.setYscale(0, 8);
-        int x;
-        int y;
         DrawBoard board = new DrawBoard();
-        AlphaBetaSearch CompMove2 = new AlphaBetaSearch(board, -1,1);
-        AlphaBetaSearch CompMove1 = new AlphaBetaSearch(board, 1,1);
+        Ai player1 = new Ai(board, 1);
+        Ai player2 = new Ai(board, -1);
         board.drawBoard();
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
-        		board.setBoard(CompMove2.findBest(7));
+        		player1.makeMove();
         	}
             else{
-                board.setBoard(CompMove1.findBest(7));
+                player2.makeMove();
             }
             board.drawBoard();
-            StdDraw.show(20);
+            StdDraw.show(5);
         }
         board.winnerString();
     }
