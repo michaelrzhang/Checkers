@@ -11,7 +11,7 @@ public class GameTree{
     public double beta; //Integer.max value, value that you want to minimize
     public int depth;
     public boolean active;  // True if we should continue searching
-    public boolean max;  // True if trying to find the best move, False if looking for the worse move
+    public int max;  // True if trying to find the best move, False if looking for the worse move
     public int winner = -10;
     
     /** Should never actually use this constructor*/
@@ -19,7 +19,7 @@ public class GameTree{
         branches = new ArrayList<GameTree>();
         parent = null;
         depth = 0;
-        max = true;
+        max = 1;
         alpha = Integer.MIN_VALUE;
         beta = Integer.MAX_VALUE;
     }
@@ -28,7 +28,7 @@ public class GameTree{
         this.board = b;
         this.parent = null;
         branches = new ArrayList<GameTree>();
-        max = true;
+        max = 1;
         depth = 0;
         alpha = Integer.MIN_VALUE;
         beta = Integer.MAX_VALUE;
@@ -36,7 +36,7 @@ public class GameTree{
     /** All other boards */
     public GameTree(GameTree parent, Board b){
         this.parent = parent;
-        max = !parent.max;
+        max = parent.max * -1;
         this.board = b;
         branches = new ArrayList<GameTree>();
         depth = parent.depth+1;
@@ -77,8 +77,15 @@ public class GameTree{
     public void cutBranches(){
         branches.clear();
     }
-    public boolean isMaximizing(){
+    public int maxing(){
         return max;
+    }
+    public boolean isMaximizing(){
+        if (max == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public ArrayList<GameTree> getBranches(){
         return branches;

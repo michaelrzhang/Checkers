@@ -26,6 +26,6 @@ public class teachableAi {
 		main.setBoard(new adamBestMove(main, gametree.findChild(main),player,strat).findBest(5));
 	}
 	public void makeMove () {
-		main.setBoard(movefinder.findBest(7));
+		main.setBoard(movefinder.findBest(6));
 	}
 }
