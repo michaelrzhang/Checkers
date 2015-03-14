@@ -50,13 +50,13 @@ public class NeuralMap {
 
 	public Perceptron highestOuputter (double[] input, int level) {
 		double max = Integer.MIN_VALUE;
-		Perceptron maxPerceptron;
+		Perceptron maxPerceptron = new Perceptron();
 		for (Perceptron p : mapLevels.get(level)) {
 			if (p.output(input) > max) {
 				max = p.output(input);
 				maxPerceptron = p;
 			}
 		}
-		return Perceptron;
+		return maxPerceptron;
 	}	
 }

@@ -97,4 +97,12 @@ public class GameTree{
         }
         return winner; 
     }
+    public GameTree findChild(Board main){
+        for (GameTree gt: getBranches()){
+            if (main.equals(gt.getBoard())){
+                return gt;
+            }           
+        }
+        return this;
+    }
 }
