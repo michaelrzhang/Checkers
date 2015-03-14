@@ -1,6 +1,6 @@
 package adam;
 public class Perceptron {
-	int[] weights;
+	double[] weights;
 	int size;
 	double value;
 	public Perceptron (int[] weights) {
@@ -15,12 +15,18 @@ public class Perceptron {
 		}
 	}
 
+	public Perceptron (Perceptron p, double[] updatew) {
+		this.size = p.size;
+		for (int i = 0; i < size; i ++) {
+			weights[i] = p.weights[i] + updatew[i];
+		}
+	}
+
 	public double output (double[] input) {
 		int output = 0;
 		for (int i = 0; i < input.length; i++) {
 			output += input[i] * weights[i];
 		}
-		value = output;
 		return output;
 	}
 
@@ -36,5 +42,15 @@ public class Perceptron {
 	}
 	public double getValue() {
 		return value;
+	}
+
+	public void addWeights(double[] w) {
+		for (int i = 0; i < weights.length; i++) {
+			weights[i] += w[i];
+		}
+	}
+
+	public void setWeights(double[] w) {
+		weights = w;
 	}
 }
