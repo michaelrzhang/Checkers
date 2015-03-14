@@ -3,7 +3,8 @@ public class Perceptron {
 	double[] weights;
 	int size;
 	double value;
-	public Perceptron (int[] weights) {
+	public Perceptron () {}
+	public Perceptron (double[] weights) {
 		this.weights = weights;
 		size = weights.length;
 	}

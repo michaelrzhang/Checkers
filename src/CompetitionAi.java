@@ -1,4 +1,5 @@
 package src;
+import adam.*;
 import lib.stdlib.*;
 import java.util.*;
 public class CompetitionAi{
@@ -6,15 +7,16 @@ public class CompetitionAi{
 		StdDraw.setXscale(0, 8);
         StdDraw.setYscale(0, 8);
         DrawBoard board = new DrawBoard();
-        Ai player1 = new Ai(board, 1);
-        Ai player2 = new Ai(board, -1);
+        GameTree gt = new GameTree(board);
+        teachableAi player1 = new teachableAi(board, gt, 1, 0);
+        teachableAi player2 = new teachableAi(board, gt, -1, 0);
         board.drawBoard();
         while(board.winner() == 0){
         	if (board.getTurn() == -1){
-        		player1.makeMove();
+        		player2.makeMove();
         	}
-            else{
-                player2.makeMove();
+            else if (board.getTurn() == 1) {
+                player1.makeMove();
             }
             board.drawBoard();
             StdDraw.show(5);
